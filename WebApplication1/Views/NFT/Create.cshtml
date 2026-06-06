@@ -1,0 +1,106 @@
+﻿@using NFChawk.Models
+@using NFChawk.Models.ViewModels
+@model CreateNFTViewModel
+
+@{
+    ViewData["Title"] = "Create New NFT";
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(/images/banner/common-banner-01.jpg);"></div>
+    <div class="common-banner__title">
+        <h2>Create New NFT</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span>Create NFT</span>
+    </div>
+</section>
+
+<section class="create-collection">
+    <div class="container">
+        <form asp-controller="NFT" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="create-collection__left-container">
+                        <div class="create-collection__title">
+                            <h4>NFT Preview</h4>
+                        </div>
+                        <div class="create-collection__single">
+                            <div class="single-Item-image">
+                                <img id="imgPreview" src="/images/resource/single-10.jpg" alt="Preview Image">
+                            </div>
+                            <div class="single-Item-content">
+                                <div class="single-Item-title">
+                                    <h3 id="titlePreview">NFT Title</h3>
+                                </div>
+                                <div class="single-Item-bid">
+                                    <div class="Item-bid">
+                                        <span>Price</span>
+                                        <h3 id="pricePreview">0.00 ETH</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="create-collection__right-container">
+                        <div class="create-collection__title">
+                            <h4>Upload NFT Asset</h4>
+                        </div>
+
+                        <div class="create-collection__form">
+                            <div class="upload-file">
+                                <div class="upload-icon"><i class="icon-cloud"></i></div>
+                                <h6>Drag & Drop File</h6>
+                                <div class="upload-btn">
+                                    Upload File
+                                    <input type="file" asp-for="ImageFile" id="ImageFile" onchange="previewFile()">
+                                </div>
+                                <p>PNG, GIF, WEBP, MP4. Max 100mb.</p>
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Item Name</h5>
+                                <input asp-for="Name" id="Name" class="collection-common-input" oninput="updatePreview()">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Description</h5>
+                                <textarea asp-for="Description" class="collection-common-input"></textarea>
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Price in ETH</h5>
+                                <input asp-for="Price" id="Price" type="number" step="0.0001" class="collection-common-input" oninput="updatePreview()">
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Collection (Optional)</h5>
+                                <select asp-for="CollectionId"
+                                        class="collection-common-input"
+                                        asp-items="@(ViewBag.Collections != null ? new SelectList(ViewBag.Collections, "Id", "Name") : new List<SelectListItem>())">
+                                    <option value="">No Collection</option>
+                                </select>
+                                <span asp-validation-for="CollectionId" class="text-danger"></span>
+                            </div>
+
+                                <br/>
+                                <br/>
+
+                            <div class="create-collection__form-btn">
+                                <button type="submit" class="btn-1">
+                                    Create NFT <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+/* error */
+.error{
+    padding: 200px 0 130px;
+}
+.error-container{
+    text-align: center;
+    margin: 0 auto;
+}
+.error-container h3{
+    font-size: 42px;
+    font-weight: 600;
+    left: 32px;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+/* error */
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px){
+    .error {
+        padding: 150px 0 100px;
+    }
+    .error-container h3 {
+        left: 0;
+        line-height: 50px;
+    }
+
+}

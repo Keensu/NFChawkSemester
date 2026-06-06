@@ -1,0 +1,217 @@
+﻿@using NFChawk.Models.Entities
+@using NFChawk.Models.Enums
+@using NFChawk.Models.ViewModels
+@model PersonalViewModel
+
+@{
+    ViewData["Title"] = "Personal Account";
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(/images/banner/common-banner-03.jpg);"></div>
+    <div class="common-banner__title">
+        <h2>Personal Account</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span>@Model.User.UserName</span>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container">
+
+        <div class="dashboard-header">
+            <div class="user-profile">
+                <div class="user-info">
+                    <h2>Welcome, @Model.User.UserName</h2>
+                </div>
+            </div>
+            <div class="dashboard-actions">
+                <a href="@Url.Action("Create", "NFT")" class="btn-1">
+                    Create NFT <span></span>
+                </a>
+                <a href="@Url.Action("Create", "Collection")" class="btn-1">
+                    Create Collection <span></span>
+                </a>
+                <br />
+                <form asp-controller="Auth" asp-action="LogOut" method="post" style="display:inline;">
+                    <button type="submit" class="btn-1">
+                        LogOut <span></span>
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+
+        <div class="user-wallets">
+            <div class="wallet-item">
+                <span class="wallet-label">Available Balance</span>
+                <h4 class="wallet-value green">@(Model.User.Balance - Model.User.HeldBalance) ETH</h4>
+            </div>
+
+            @if (Model.User.HeldBalance > 0)
+            {
+                <div class="wallet-item border-left">
+                    <span class="wallet-label">In Active Bids (Locked)</span>
+                    <h4 class="wallet-value purple">@Model.User.HeldBalance ETH</h4>
+                </div>
+            }
+
+            <div class="wallet-item border-left">
+                <span class="wallet-label">Total Balance</span>
+                <h4 class="wallet-value">@Model.User.Balance $</h4>
+            </div>
+        </div>
+
+        <div class="dashboard-section-title">
+            <h4>My NFT Items</h4>
+        </div>
+
+        <div class="nft-grid">
+            @if (Model.MyNFTs != null && Model.MyNFTs.Any())
+            {
+                var nftList = Model.MyNFTs.ToList();
+                for (int i = 0; i < nftList.Count; i++)
+                {
+                    var nft = nftList[i];
+                    int cardZIndex = 1000 - i;
+                    var isFullOwner = (nft.OwnerId == Model.User.Id) || (nft.OwnerId == null && nft.AuthorId == Model.User.Id);
+
+                    <div class="nft-card @(nft.Status == NFTStatus.OnAuction ? "nft-card--auction" : "")" style="z-index: @cardZIndex;">
+                        <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="nft-card-link">
+                            <div class="nft-image-wrapper">
+                                <img src="@nft.ImageUrl" alt="@nft.Name">
+                                @if (nft.Status == NFTStatus.OnAuction)
+                                {
+                                    <div class="auction-tag">LIVE AUCTION</div>
+                                }
+                            </div>
+                        </a>
+                        <div class="nft-card-content">
+                            <div class="nft-meta">
+                                <h3>@nft.Name</h3>
+                                <span class="nft-price">@nft.Price ETH</span>
+                            </div>
+
+                            <div class="nft-action-footer">
+                                @if (nft.Status != NFTStatus.OnAuction && nft.Status != NFTStatus.Sold && isFullOwner)
+                                {
+                                    <form asp-controller="NFT" asp-action="AssignToCollection" method="post" class="nft-move-form">
+                                        <input type="hidden" name="nftId" value="@nft.Id" />
+                                        <div class="move-select-container">
+                                            <select name="collectionId">
+                                                <option value="">No Collection</option>
+                                                @foreach (var c in Model.MyCollections)
+                                                {
+                                                    <option value="@c.Id" selected="@(nft.CollectionId == c.Id)">@c.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="move-button-container">
+                                            <button type="submit" class="btn-1 btn-move-submit">
+                                                MOVE
+                                            </button>
+                                        </div>
+                                    </form>
+                                }
+
+                                <div class="nft-sale-actions">
+                                    @if (nft.Status == NFTStatus.OnAuction)
+                                    {
+                                        if (nft.Auction != null && !nft.Auction.IsFinished)
+                                        {
+                                            <a href="@Url.Action("Details", "Auction", new { id = nft.Auction.Id })" class="btn-1 full-width">
+                                                GO TO AUCTION <span></span>
+                                            </a>
+                                            <p>You're Author, but not owner</p>
+                                        }
+                                    }
+                                    else if (nft.Status == NFTStatus.IsForSale)
+                                    {
+                                        <form asp-controller="NFT" asp-action="CancelSale" asp-route-id="@nft.Id" method="post">
+                                            <button type="submit" class="btn-1 full-width">
+                                                CANCEL SALE <span></span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else if (isFullOwner)
+                                    {
+                                        <div class="action-buttons-group">
+                                            <form asp-controller="NFT" asp-action="PutOnSale" asp-route-id="@nft.Id" method="post">
+                                                <button type="submit" class="btn-1 full-width">FIX PRICE <span></span></button>
+                                            </form>
+                                            <a href="@Url.Action("Create", "Auction", new { nftId = nft.Id })" class="btn-1 full-width">
+                                                AUCTION <span></span>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+
+                                @if (nft.Status != NFTStatus.OnAuction && isFullOwner)
+                                {
+                                    <form asp-controller="NFT" asp-action="Delete" asp-route-id="@nft.Id" method="post"
+                                          onsubmit="return confirm('Delete this NFT permanently?');">
+                                        <button type="submit" class="btn-delete-full">Delete NFT</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-items">
+                    <p>No NFT items found.</p>
+                </div>
+            }
+        </div>
+
+        <div class="dashboard-section-title collection-title-spacing">
+            <h4>My Collections</h4>
+        </div>
+
+        <div class="nft-grid">
+            @if (Model.MyCollections != null && Model.MyCollections.Any())
+            {
+            @foreach (var c in Model.MyCollections)
+            {
+                <div class="nft-card">
+                    <a href="@Url.Action("Index", "ItemDetails", new { id = c.Id, type = "collection" })" class="nft-card-link">
+                        <div class="collection-banner-frame">
+                            <img src="@(string.IsNullOrEmpty(c.BannerImageUrl) ? "/images/resource/single-10.jpg" : c.BannerImageUrl)" alt="@c.Name">
+                        </div>
+                    </a>
+
+                    <div class="nft-card-content">
+                        <div class="collection-header-row">
+                            <h3>@c.Name</h3>
+                            <form asp-controller="Collection" asp-action="Delete" asp-route-id="@c.Id" method="post"
+                                  onsubmit="return confirm('Delete collection? NFTs will remain.');">
+                                <button type="submit" class="btn-delete-text">Delete</button>
+                            </form>
+                        </div>
+
+                        <div class="nft-meta">
+                            <span class="Card-address">Contains</span>
+                            <span class="nft-price">@c.NFTs.Count Items</span>
+                        </div>
+
+                        <div class="collection-mini-previews">
+                            @foreach (var nft in c.NFTs.Take(4))
+                            {
+                                <img src="@nft.ImageUrl" class="nft-mini-thumb" alt="NFT Thumbnail">
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+            else
+            {
+                <div class="no-items">
+                    <p>No collections found.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

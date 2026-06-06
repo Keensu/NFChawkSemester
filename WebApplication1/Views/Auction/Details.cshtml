@@ -1,0 +1,91 @@
+﻿@model NFChawk.Models.Entities.Auction
+@{
+    ViewData["Title"] = "Auction";
+    var bids = ViewBag.Bids as List<NFChawk.Models.Entities.Bid>;
+}
+
+<div class="auction-details-page" id="auctionData" data-auction-id="@Model.Id">
+    <div class="container">
+        <div class="auction-layout">
+            <div class="auction-left">
+                <div class="auction-image-wrapper">
+                    <img src="@Model.NFT.ImageUrl" alt="@Model.NFT.Name" class="auction-image" />
+                </div>
+            </div>
+
+            <div class="auction-right">
+                <div class="auction-info-card">
+                    <div class="auction-top">
+                        <h2>@Model.NFT.Name</h2>
+                        <p class="auction-description">@Model.NFT.Description</p>
+                    </div>
+
+                    <div class="auction-meta">
+                        <div class="auction-meta-item">
+                            <span>Current Price</span>
+                            <h3 id="currentPrice">@Model.CurrentPrice ETH</h3>
+                        </div>
+                        <div class="auction-meta-item">
+                            <span>Top Bidder</span>
+                            <h5 id="topBidder">@(Model.Winner?.UserName ?? "No bids yet")</h5>
+                        </div>
+                        <div class="auction-meta-item">
+                            <span>Auction Ends In</span>
+                            
+                            <h4 id="auctionTimer" data-end="@Model.EndTime.ToString("yyyy-MM-ddTHH:mm:ssZ")"></h4>
+                        </div>
+                    </div>
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="auction-error">@TempData["Error"]</div>
+                    }
+
+                    @if (!Model.IsFinished)
+                    {
+                        <form asp-action="PlaceBid" method="post" class="bid-form" id="bidForm">
+                            <input type="hidden" name="auctionId" value="@Model.Id" />
+                            <div class="bid-input-wrapper">
+                                <input type="number" name="Amount" step="0.01" placeholder="Enter your bid" class="auction-input" required />
+                                <button type="submit" class="btn-1">
+                                    Place Bid
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    }
+                </div>
+
+                <div class="auction-bids-card">
+                    <div class="auction-bids-header">
+                        <h3>Bid History</h3>
+                    </div>
+                    <div class="auction-bids-list" id="bidsList">
+                        @if (bids != null && bids.Any())
+                        {
+                            @foreach (var bid in bids)
+                            {
+                                <div class="auction-bid-item">
+                                    <div>
+                                        <h6>@bid.Bidder.UserName</h6>
+                                        <p>@bid.CreatedAt.ToLocalTime().ToString("HH:mm:ss")</p>
+                                    </div>
+                                    <h5>@bid.Amount $</h5>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No bids yet</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/auction/auction.signalr.js"></script>
+}

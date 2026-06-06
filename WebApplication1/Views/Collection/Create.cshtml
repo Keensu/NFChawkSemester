@@ -1,0 +1,78 @@
+﻿HTML
+@using NFChawk.Models
+@using NFChawk.Models.ViewModels
+@model CreateCollectionViewModel
+
+@{
+    ViewData["Title"] = "Create Collection";
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(/images/banner/common-banner-01.jpg);"></div>
+    <div class="common-banner__title">
+        <h2>Create Collection</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span>New Collection</span>
+    </div>
+</section>
+
+<section class="create-collection">
+    <div class="container">
+        <form asp-controller="Collection" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="row">
+                @* Превью *@
+                <div class="col-lg-6">
+                    <div class="create-collection__left-container">
+                        <div class="create-collection__title">
+                            <h4>Collection Preview</h4>
+                        </div>
+                        <div class="create-collection__single">
+                            <div class="single-Item-image">
+                                <img id="collectionImgPreview" src="/images/resource/single-10.jpg" alt="Preview">
+                            </div>
+                            <div class="single-Item-content">
+                                <div class="single-Item-title">
+                                    <h3 id="collectionNamePreview">Collection Title</h3>
+                                </div>
+                                <p id="collectionDescPreview" style="font-size: 14px; opacity: 0.7;">Description...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="create-collection__right-container">
+                        <div class="create-collection__title">
+                            <h4>Upload Collection Prewiew Photo</h4>
+                        </div>
+                        <div class="create-collection__form">
+                            <div class="upload-file">
+                                <div class="upload-icon"><i class="icon-cloud"></i></div>
+                                <h6>Banner Image</h6>
+                                <div class="upload-btn">
+                                    Upload File
+                                    <input type="file" asp-for="BannerImage" id="BannerImage" onchange="previewCollectionFile()">
+                                </div>
+                                <span asp-validation-for="BannerImage" class="text-danger"></span>
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Collection Name</h5>
+                                <input asp-for="Name" id="ColName" class="collection-common-input" oninput="updateCollectionPreview()">
+                            </div>
+
+                            <div class="create-collection__form-box">
+                                <h5 class="title">Description</h5>
+                                <textarea asp-for="Description" id="ColDesc" class="collection-common-input" oninput="updateCollectionPreview()"></textarea>
+                            </div>
+
+                            <div class="create-collection__form-btn">
+                                <button type="submit" class="btn-1">Create Now<span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>@ViewData["Title"] Nfchawk HTML Template</title>
+
+	<link href="~/css/bootstrap.css" rel="stylesheet">
+	<link href="~/css/style.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+</head>
+
+@{
+	    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
+
+<body>
+
+	<div class="page-wrapper page-wrapper-one">
+
+		<div class="loader-wrap">
+			<div class="preloader">
+				<div class="preloader-close">x</div>
+				<div id="handle-preloader" class="handle-preloader">
+					<div class="animation-preloader">
+						<div class="spinner"></div>
+						<div class="txt-loading">
+							<span data-text-preloader="n" class="letters-loading">n</span>
+							<span data-text-preloader="f" class="letters-loading">f</span>
+							<span data-text-preloader="c" class="letters-loading">c</span>
+							<span data-text-preloader="h" class="letters-loading">h</span>
+							<span data-text-preloader="a" class="letters-loading">a</span>
+							<span data-text-preloader="w" class="letters-loading">w</span>
+							<span data-text-preloader="k" class="letters-loading">k</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cursor"></div>
+		<div class="cursor-follower"></div>
+		<div class="search-popup">
+			<div class="color-layer"></div>
+			<button class="close-search"><span class="far fa-times fa-fw"></span></button>
+			<form method="get" action="@Url.Action("Index", "Blog")">
+				<div class="form-group">
+					<input type="search" name="searchField" value="@ViewData["CurrentFilter"]" placeholder="Search Here" required="">
+					<button type="submit"><i class="far fa-search fa-fw"></i></button>
+				</div>
+			</form>
+		</div>
+		<header class="main-header main-header-one">
+
+			<div class="header-lower">
+				<div class="container">
+					<div class="inner-container d-flex align-Items-center justify-content-between">
+						<div class="main-header-one__logo-box">
+							<a href="@Url.Action("Index", "Home")"><img src="/images/logo.png" alt="logo"></a>
+						</div>
+
+						<div class="nav-outer main-header-one__nav-outer">
+							<nav class="main-menu show navbar-expand-md">
+								<div class="navbar-header">
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+											data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+											aria-expanded="false" aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+								<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li class="@(currentController == "Home" ? "current" : "")">
+											<a href="@Url.Action("Index", "Home")">Home</a>
+										</li>
+										<li class="@(currentController == "About" ? "current" : "")">
+											<a href="@Url.Action("Index", "About")">About Us</a>
+										</li>
+										<li class="@(currentController == "Blog" ? "current" : "")">
+											<a href="@Url.Action("Index", "Blog")">Blog</a>
+										</li>
+										
+										<li class="dropdown">
+											<a href="#0">Explore</a>
+											<ul>
+												<li><a href="@Url.Action("LogIn", "Auth")">Log In</a></li>
+												<li><a href="@Url.Action("SignUp", "Auth")">Sign Up</a></li>
+												<li><a href="@Url.Action("Index", "TermsOfServices")">Terms Of Services</a></li>
+												<li><a href="@Url.Action("Index", "Privacy")">Privacy Policy</a></li>
+												<li><a href="@Url.Action("Index", "Contact")">Contact Us</a></li>
+											</ul>
+										</li>
+										<li class="dropdown">
+											<a href="#0">Pages</a>
+											<ul>
+												<li><a href="@Url.Action("Index", "LiveAuctions")">Live Auctions</a></li>
+												<li><a href="@Url.Action("Index", "RecentActivity")">Recent Activity</a></li>
+												<li><a href="@Url.Action("Index", "Collection")">Collections</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</nav>
+							<div class="outer-box main-header-one__outer-box">
+								<div class="header-search">
+									<a href="#0" class="header-upper__search"><i class="icon-search-1"></i></a>
+								</div>
+								<div class="btn-link">
+									<div class="header-link-btn">
+										@if (User.Identity != null && User.Identity.IsAuthenticated)
+										{
+											<a href="@Url.Action("Index", "Personal")" class="btn-1">
+												Cabinet <span></span>
+											</a>
+
+											if (User.IsInRole("Admin"))
+											{
+												<a href="@Url.Action("Index", "Admin")" class="btn-1">
+													Admin <span></span>
+												</a>
+											}
+										}
+										else
+										{
+											<a href="@Url.Action("SignUp", "Auth")" class="btn-1">
+												Sign Up <span></span>
+											</a>
+										}
+											
+									</div>
+								</div>
+								<div class="mobile-nav-toggler">
+									<span></span><span></span><span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mobile-menu">
+				<div class="menu-backdrop"></div>
+				<div class="close-btn"><span class="icon far fa-times fa-fw"></span></div>
+				<nav class="menu-box">
+					<div class="nav-logo"><a href="@Url.Action("Index", "Home")"><img src="/images/logo.png" alt="logo"></a></div>
+					<div class="search-box">
+						<form method="post" action="@Url.Action("Index", "Contact")">
+							<div class="form-group">
+								<input type="search" name="search-field" value="" placeholder="SEARCH HERE" required>
+								<button type="submit"><span class="icon far fa-search fa-fw"></span></button>
+							</div>
+						</form>
+					</div>
+					<div class="menu-outer">
+					</div>
+				</nav>
+			</div>
+			<div class="sticky-header">
+				<div class="container">
+					<div class="outer-box">
+						<div class="logo-box">
+							<div class="logo"><a href="@Url.Action("Index", "Home")"><img src="/images/logo.png" alt="logo"></a></div>
+						</div>
+						<div class="menu-area clearfix">
+							<nav class="main-menu clearfix">
+							</nav>
+						</div>
+						<div class="mobile-nav-toggler">
+							<span></span><span></span><span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+		@RenderBody()
+
+		<footer class="main-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-5 col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+						<div class="footer-widget__column footer-widget__logo">
+							<div class="footer-widget__logo-box">
+								<a href="@Url.Action("Index", "Home")"><img src="/images/logo.png" alt="logo"></a>
+							</div>
+							<div class="footer-widget__text">
+								<p>Subscribe on our socials</p>
+							</div>
+							<div class="footer-widget__social">
+								<a href="https://twitter.com/" class="twitter icon-twitter"></a>
+								<a href="https://instagram.com/" class="instagram icon-instagram"></a>
+								<a href="https://discord.com/" class="discord icon-discord"></a>
+								<a href="https://tiktok.com/" class="tik-tok icon-tik-tok"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+						<div class="footer-widget__column footer-widget__authors">
+							<div class="footer-widget__authors_inner">
+								<div class="footer-widget__title-box">
+									<h3 class="footer-widget__title">Marketplace</h3>
+								</div>
+								<div class="footer-widget__explore-list-box">
+									<ul class="footer-widget__explore-list">
+										<li><a href="@Url.Action("Index", "Author")">Authors</a></li>
+										<li><a href="@Url.Action("CreateCollection", "Collection")">Create</a></li>
+										<li>
+											@*
+											<a href="@(
+											  User.Identity != null && User.Identity.IsAuthenticated
+												  ? Url.Action("Index", "Card")
+												  : Url.Action("SignUp", "Auth")
+														)">
+												Card Connect
+											</a>
+											*@
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="300ms">
+						<div class="footer-widget__column footer-widget__blog">
+							<div class="footer-widget__blog_inner">
+								<div class="footer-widget__title-box">
+									<h3 class="footer-widget__title">Community</h3>
+								</div>
+								<div class="footer-widget__explore-list-box">
+									<ul class="footer-widget__explore-list">
+										<li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
+										<li><a href="@Url.Action("Index", "Collection")">Collection</a></li>
+										<li><a href="@Url.Action("LogIn", "Auth")">Signin</a></li>
+										<li><a href="@Url.Action("SignUp", "Auth")">Signup</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					 <div class="col-xl-3 col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+						<div class="footer-widget__column footer-widget__newsletter">
+							<div class="footer-widget__newsletter_inner">
+								<div class="footer-widget__title-box">
+									<h3 class="footer-widget__title">Contact Us</h3>
+								</div>
+								<ul class="footer-widget__explore-list">
+									<li><a href="@Url.Action("Index", "Contact")">Send us a message</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div class="scroll-to-top">
+		<div>
+			<div class="scroll-top-inner">
+				<div class="scroll-bar">
+					<div class="bar-inner"></div>
+				</div>
+				<div class="scroll-bar-text">Go To Top</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/js/jquery.js"></script>
+	<script src="~/js/popper.min.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/bootstrap-select.min.js"></script>
+	<script src="~/js/jquery.nice_select.min.js"></script>
+	<script src="~/js/magnific-popup.min.js"></script>
+	<script src="~/js/appear.js"></script>
+	<script src="~/js/parallax.min.js"></script>
+	<script src="~/js/tilt.jquery.min.js"></script>
+	<script src="~/js/owl.js"></script>
+	<script src="~/js/wow.js"></script>
+	<script src="~/js/isotope.js"></script>
+	<script src="~/js/odometer.js"></script>
+	<script src="~/js/jquery.marquee.min.js"></script>
+	<script src="~/js/parallax-scroll.js"></script>
+	<script src="~/js/jquery.paroller.min.js"></script>
+	<script src="~/js/nav-tool.js"></script>
+	<script src="~/js/jquery-ui.js"></script>
+	<script src="~/js/jarallax.min.js"></script>
+	<script src="~/js/swiper.min.js"></script>
+	<script src="~/js/gsap.min.js"></script>
+	<script src="~/js/ScrollTrigger.min.js"></script>
+	<script src="~/js/ScrollSmoother.min.js"></script>
+	<script src="~/js/SplitText.min.js"></script>
+	<script src="~/js/jquery.nice_select.min.js"></script>
+
+	<script src="~/js/script.js"></script>
+	<script src="~/js/color-settings.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

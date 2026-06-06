@@ -1,0 +1,259 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NFChawk.Models.ViewModels
+@model ItemDetailsViewModel
+@inject UserManager<NFChawk.Models.Entities.User> UserManager
+
+@{
+    ViewData["Title"] = Model.Name;
+    var currentUser = await UserManager.GetUserAsync(User);
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(@(string.IsNullOrEmpty(Model.Image) ? Url.Content("~/images/banner/common-banner-01.jpg") : Url.Content(Model.Image)));"></div>
+    <div class="common-banner__title">
+        <h2>@Model.Name</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span> @(Model.NFT != null ? "NFT" : "Collection") Details</span>
+    </div>
+</section>
+
+<section class="Items-details create-collection">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="create-collection__left-container">
+                    <div class="create-collection__title">
+                        <h4>NFT Preview</h4>
+                    </div>
+                    <div class="create-collection__single">
+                        <div class="single-Item-image">
+                            <img id="imgPreview" src="@(Model.NFT?.ImageUrl ?? "/images/resource/single-10.jpg")" alt="Preview Image">
+                        </div>
+                        <div class="single-Item-content">
+                            <div class="single-Item-title">
+                                <h3 id="titlePreview">@Model.Name</h3>
+                            </div>
+
+                            <p id="descPreview" style="color: #86909D; font-size: 14px;">@Model.Description</p>
+
+                            <div class="single-Item-info">
+                                <div class="single-Item-member-info">
+                                    <div class="member-info">
+                                        <p>@Model.AuthorName</p>
+                                        <span>Author</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (Model.NFT != null)
+                            {
+                                <div class="single-Item-bid">
+                                    <div class="Item-bid">
+                                        <span>Price</span>
+                                        <h3 id="pricePreview">@Model.NFT.Price.ToString("F3") ETH</h3>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="create-collection__right-container">
+                    @{
+                        bool isNftAuthor = Model.NFT != null && currentUser != null && Model.NFT.AuthorId == currentUser.Id;
+                        bool isNftOwner = Model.NFT != null && currentUser != null && (Model.NFT.OwnerId == currentUser.Id || (Model.NFT.OwnerId == null && Model.NFT.AuthorId == currentUser.Id));
+                        bool isColAuthor = Model.Collection != null && currentUser != null && Model.Collection.AuthorId == currentUser.Id;
+                        bool canEdit = (Model.NFT != null && isNftOwner) || (Model.Collection != null && isColAuthor);
+                    }
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            <i class="icon-check"></i> @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="icon-close"></i> @TempData["ErrorMessage"]
+                        </div>
+                    }
+
+                    @if (canEdit)
+                    {
+                        <div class="create-collection__title">
+                            <h4>Edit Asset Details</h4>
+                        </div>
+
+                        <div class="create-collection__form">
+                            <form asp-controller="NFT" asp-action="UpdateDetails" method="post">
+                                <input type="hidden" name="Id" value="@(Model.NFT?.Id ?? Model.Collection?.Id)" />
+                                <input type="hidden" name="Type" value="@(Model.NFT != null ? "nft" : "collection")" />
+
+                                <div class="create-collection__form-box">
+                                    <h5 class="title">Item Name</h5>
+                                    @if(Model.Collection != null || isNftAuthor) {
+                                        <input type="text" name="Name" id="Name" class="collection-common-input"
+                                               value="@Model.Name" onchange="window.updateEditAssetPreview()" required>
+                                    } else {
+                                        <input type="text" name="Name" id="Name" class="collection-common-input"
+                                               value="@Model.Name" readonly style="background-color: #f8f9fa;">
+                                    }
+                                </div>
+
+                                <div class="create-collection__form-box">
+                                    <h5 class="title">Description</h5>
+                                    @if(Model.Collection != null || isNftAuthor) {
+                                        <textarea name="Description" id="Description" class="collection-common-input"
+                                                  onchange="window.updateEditAssetPreview()">@Model.Description</textarea>
+                                    } else {
+                                        <textarea name="Description" id="Description" class="collection-common-input"
+                                                  readonly style="background-color: #f8f9fa;">@Model.Description</textarea>
+                                    }
+                                </div>
+
+                                
+
+                                @if (Model.NFT != null)
+                                {
+                                    <div class="create-collection__form-box">
+                                        <h5 class="title">Price in ETH</h5>
+                                        <input type="number" step="0.001" name="Price" id="Price" class="collection-common-input"
+                                               value="@Model.NFT.Price.ToString("F3").Replace(",", ".")"
+                                               onchange="window.updateEditAssetPreview()">
+                                    </div>
+                                }
+
+                                <div class="create-collection__form-btn" style="margin-top: 30px;">
+                                    <button type="submit" class="btn-1">
+                                        Update Asset <span></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="create-collection__title">
+                            <h4>Asset Details</h4>
+                        </div>
+
+                        <p style="color: #86909D; font-size: 16px; margin: 10px;">@Model.Description</p>
+
+                        @if (Model.NFT != null)
+                        {
+                            <div style="margin-top: 30px;">
+                                @if (Model.NFT.Status == NFChawk.Models.Enums.NFTStatus.OnAuction)
+                                {
+                                    <a href="@Url.Action("Details", "Auction", new { id = Model.NFT.Auction?.Id })" class="btn-1">GO TO AUCTION <span></span></a>
+                                }
+                                else if (Model.NFT.Status == NFChawk.Models.Enums.NFTStatus.IsForSale)
+                                {
+                                    <form asp-controller="NFT" asp-action="Buy" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@Model.NFT.Id" />
+                                        <button type="submit" class="btn-1" style="background: #28a745; border: none; cursor: pointer;">
+                                            BUY NOW FOR @Model.NFT.Price.ToString("F3") ETH <span></span>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="btn-1" style="background: #6c757d; cursor: not-allowed;">NOT FOR SALE <span></span></span>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="collection-items" class="newes Item-details-carousel wow fadeInUp" data-wow-delay="100ms">
+    <div class="container">
+        <div class="common-title">
+            @if(Model.Collection != null){
+            <h2>Items in this Collection</h2>
+            }
+        </div>
+
+        <div class="live__slider">
+            <div class="owl-carousel owl-theme thm-owl__carousel live-carousel owl-nav-style-one @(Model.Collection == null ? "hide-navigation" : "")"
+                 data-owl-options='{
+                 "loop" : false, "autoplay" : true, "margin" : 30, "nav" : true, "dots" : false, "smartSpeed" : 500,
+                 "responsive": { "0": { "Items": 1 }, "768": { "Items": 1 }, "992": { "Items": 2 }, "1200": { "Items": 3 } }
+                 }'>
+
+                @if (Model.Collection?.NFTs != null && Model.Collection.NFTs.Any())
+                {
+                    @foreach (var nft in Model.Collection.NFTs)
+                    {
+                        <div class="single-Item">
+                            <div class="single-Item-image">
+                                <img src="@Url.Content(nft.ImageUrl)" alt="@nft.Name">
+                            </div>
+                            <div class="single-Item-content">
+                                <div class="single-Item-title">
+                                    <h3>@nft.Name</h3>
+                                </div>
+                                <div class="single-Item-info">
+                                    <div class="single-Item-member-info">
+                                        <div class="member-info">
+                                            <p>@Model.AuthorName</p>
+                                            <span>Owner</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-Item-bid">
+                                    <div class="Item-bid">
+                                        <span>Current Price</span>
+                                        <h3>@nft.Price ETH</h3>
+                                    </div>
+                                    <div class="Item-bid-btn">
+                                        @{
+                                            var isOwner = currentUser != null && (nft.OwnerId == currentUser.Id || (nft.OwnerId == null && nft.AuthorId == currentUser.Id));
+                                        }
+                                        @if (nft.Status == NFChawk.Models.Enums.NFTStatus.OnAuction)
+                                        {
+                                            <a href="@Url.Action("Details", "Auction", new { id = nft.Auction?.Id })" class="btn-1">AUCTION <span></span></a>
+                                        }
+                                        else if (isOwner)
+                                        {
+                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">MY ITEM <span></span></a>
+                                        }
+                                        else if (nft.Status == NFChawk.Models.Enums.NFTStatus.IsForSale)
+                                        {
+                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">BUY NOW <span></span></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">DETAILS <span></span></a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p style="padding: 20px;">No items found in this category.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="latest-news">
+    <div class="marquee">
+        <ul class="marquee-content">
+            <li>Discover & Collect Extraordinary Digital Art and Rare NFTs</li>
+            <li>Discover & Collect Extraordinary Digital Art and Rare NFTs</li>
+            <li>Discover & Collect Extraordinary Digital Art and Rare NFTs</li>
+        </ul>
+    </div>
+</div>

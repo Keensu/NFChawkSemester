@@ -1,0 +1,109 @@
+@media only screen and (max-width: 1680px){
+
+
+
+
+}
+
+
+
+@media only screen and (min-width: 1500px) and (max-width: 1902px) {
+	
+
+
+}
+
+
+
+@media only screen and (min-width: 1500px) and (max-width: 1820px) {}
+
+
+@media only screen and (min-width: 1400px) and (max-width: 1600px) {}
+
+
+
+@media only screen and (min-width: 1367px) and (max-width: 1567px){
+	
+
+
+
+}
+
+
+@media only screen and (max-width: 1366px){
+	
+
+
+
+}
+
+
+
+@media only screen and (min-width: 1319px) and (max-width: 1530px) {
+	
+	
+
+
+}
+
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1770px) {
+	.contact-one__shape-1 {
+		display: none;
+	}
+}
+
+
+
+
+/* Large screen  */
+@media only screen and (min-width: 1200px) and (max-width: 1319px) {
+
+
+}
+
+
+/* Medium screen  */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+	
+
+
+
+}
+
+
+@media (min-width: 992px){
+	.col-lg-4,.col-lg-3 {
+		padding: 0 15px;
+	}
+
+}
+
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+	
+
+}
+
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+	
+.center-title h2, .common-title h2, .community__title h2{
+	font-size: 24px;
+}
+	
+
+
+
+}
+
+
+
+

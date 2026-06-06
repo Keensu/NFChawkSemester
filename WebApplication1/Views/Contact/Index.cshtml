@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+<!-- common banner -->
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(images/banner/common-banner-04.jpg);"></div>
+    <div class="common-banner__title">
+        <h2>Contact Us</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span> Contact</span>
+    </div>
+</section>
+<!-- common banner -->
+<!-- Contact Page -->
+<section class="contact-page">
+    <div class="container">
+        <div class="common-title">
+            <h2>Contact</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contact-page__left-container">
+                    <div class="contact-page__left-info">
+                        <h4 class="contact-title">Contact Us</h4>
+                        <a>Got a project in mind? Fill in the form.</a>
+                    </div>
+
+                    <div class="contact-page__left-info">
+                        <h4 class="contact-title">Phone</h4>
+                        <a class="contact-link" href="tel:+79505035200">+79505035200</a>
+                    </div>
+
+                    <div class="contact-page__left-info">
+                        <h4 class="contact-title">Email</h4>
+                        <a class="contact-link" href="mailto:work3do1send@gmail.com">work3do1send@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 offset-lg-1">
+                <div class="contact-page__form">
+                    <form asp-action="Send" method="post">
+                        <div class="input-group">
+                            <input type="text"
+                                   name="Name"
+                                   class="comment-input"
+                                   placeholder="Name"
+                                   required>
+
+                            <input type="email"
+                                   name="Email"
+                                   class="comment-input"
+                                   placeholder="Email"
+                                   required>
+                        </div>
+
+                        <input type="text"
+                               name="Subject"
+                               class="comment-input contact-input"
+                               placeholder="Subject"
+                               required>
+
+                        <textarea name="Message"
+                                  class="comment-input"
+                                  placeholder="Your Comment"
+                                  required></textarea>
+
+                        <button type="submit" class="btn-1">
+                            Submit Now
+                            <span></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Page -->

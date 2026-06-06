@@ -1,0 +1,49 @@
+/* IntelyTech Business HTML Template */
+
+/* ======================================
+	Css Files
+========================================= */
+
+
+
+/* Module Css */
+@import url('module-css/01-header.css');
+@import url('module-css/02-banner.css');
+@import url('module-css/03-footer.css');
+@import url('module-css/04-page-title.css');
+@import url('module-css/05-work.css');
+@import url('module-css/06-live.css');
+@import url('module-css/07-top-seller.css');
+@import url('module-css/08-collections.css');
+@import url('module-css/09-community.css');
+@import url('module-css/10-sponsers.css');
+@import url('module-css/11-ñard.css');
+@import url('module-css/12-testimonial.css');
+@import url('module-css/13-about.css');
+@import url('module-css/14-team.css');
+@import url('module-css/15-activity.css');
+@import url('module-css/16-log-in.css');
+@import url('module-css/17-service.css');
+@import url('module-css/18-error.css');
+@import url('module-css/19-blog.css');
+@import url('module-css/20-contact.css');
+@import url('module-css/21-personal.css');
+@import url('module-css/22-auction.css');
+
+
+
+/*  */
+@import url('global.css');
+@import url('font-awesome.css');
+@import url('animate.css');
+@import url('owl.css');
+@import url('jquery-ui.css');
+@import url('preloader.css');
+@import url('scroll-to-top.css');
+@import url('custom-animate.css');
+@import url('magnific-popup.css');
+@import url('odometer-theme-default.css');
+@import url('swiper.min.css');
+@import url('icomoon.css');
+@import url('nice_select.css');
+@import url('bootstrap-select.min.css');

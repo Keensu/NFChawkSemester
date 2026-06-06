@@ -1,0 +1,109 @@
+﻿@using NFChawk.Models.ViewModels
+@model SignUpViewModel
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<!-- common banner -->
+<section class="common-banner">
+    <div class="common-banner__bg"
+         style="background-image: url('/images/banner/common-banner-02.jpg');">
+    </div>
+
+    <div class="common-banner__title">
+        <h2>Register New Account</h2>
+
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span> Register</span>
+    </div>
+</section>
+
+<!-- log in -->
+<section class="log-in">
+    <div class="container">
+        <div class="log-in__container">
+
+            <div class="log-in__title">
+                <h4>Register</h4>
+                <p>Please Signup with your account</p>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="log-in__form">
+
+                <form asp-action="SignUp"
+                      asp-controller="Auth"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="input">
+                        <input asp-for="Username"
+                               class="common-input"
+                               placeholder="Username">
+
+                        <span>
+                            <img src="~/images/icons/user-1.png" alt="user">
+                        </span>
+                    </div>
+
+                    <span asp-validation-for="Username"
+                          class="text-danger"></span>
+
+                    <div class="input">
+                        <input asp-for="Email"
+                               class="common-input"
+                               placeholder="Email">
+
+                        <span>
+                            <img src="~/images/icons/email.png" alt="user">
+                        </span>
+                    </div>
+
+                    <span asp-validation-for="Email"
+                          class="text-danger"></span>
+
+                    <div class="input">
+                        <input asp-for="Password"
+                               class="common-input"
+                               placeholder="Password">
+
+                        <span>
+                            <img src="~/images/icons/lock-1.png" alt="user">
+                        </span>
+                    </div>
+
+                    <span asp-validation-for="Password"
+                          class="text-danger"></span>
+
+                    <div class="password-box">
+
+                        <a href="@Url.Action("RecoverPassword", "Auth")">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <div class="log-in__btn">
+                        <button type="submit" class="btn-1">
+                            Register <span></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="log-signup">
+                <p>Already have an account?</p>
+
+                <a href="@Url.Action("LogIn", "Auth")">
+                    LogIn
+                </a>
+            </div>
+
+            <div class="signin-divider"></div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,134 @@
+﻿@using NFChawk.Models.ViewModels
+@using NFChawk.Models.Enums
+@model ActivityViewModel
+@{
+	ViewData["Title"] = "Recent Activities";
+}
+
+<!-- common banner -->
+<section class="common-banner">
+	<div class="common-banner__bg" style="background-image: url(@Url.Content("~/images/banner/common-banner-01.jpg"));"></div>
+	<div class="common-banner__title">
+		<h2>Recent Activity</h2>
+		<a href="@Url.Action("Index", "Home")">home / </a>
+		<span> Recent Activity</span>
+	</div>
+</section>
+
+<!--  recent activity -->
+<section class="activity">
+	<div class="container">
+		<div class="common-title">
+			<h2>Activity</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-9 col-md-8">
+				<div class="activity__container">
+					<div class="row">
+						@if (Model.Activities != null && Model.Activities.Any())
+						{
+							@foreach (var act in Model.Activities)
+							{
+								<div class="col-lg-6 activity-list">
+									<div class="activity__content-box">
+										<div class="activity__content-image">
+											<img src="@Url.Content(act.NFT?.ImageUrl ?? "~/images/resource/placeholder.png")" alt="image" style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px;">
+										</div>
+										<div class="activity__content-info">
+											<a href="@Url.Action("Index", "ItemDetails", new { id = act.NFTId, type = "nft" })">@(act.NFT?.Name ?? "Deleted NFT")</a>
+
+
+											@if (act.Type == ActivityType.Mint)
+											{
+												<h6>minted by <strong>@act.User?.UserName</strong></h6>
+											}
+											else if (act.Type == ActivityType.Listing)
+											{
+												<h6>listed by <strong>@act.User?.UserName</strong> <br> for <span>@act.Price $</span></h6>
+											}
+											else if (act.Type == ActivityType.Purchase || act.Type == ActivityType.Sale)
+											{
+												<h6>purchased by <strong>@act.User?.UserName</strong> <br> for <span>@act.Price $</span></h6>
+											}
+											else if (act.Type == ActivityType.Bid)
+											{
+												<h6>offered a bid <strong>@act.User?.UserName</strong> <br> of <span>@act.Price $</span></h6>
+											}
+
+											@{
+												var timeDiff = DateTime.UtcNow - act.CreatedAt;
+												string timeAgo = timeDiff.TotalMinutes < 1 ? "Just now" :
+												timeDiff.TotalMinutes < 60 ? $"{(int)timeDiff.TotalMinutes} minutes ago" :
+												timeDiff.TotalHours < 24 ? $"{(int)timeDiff.TotalHours} hours ago" :
+												$"{(int)timeDiff.TotalDays} days ago";
+											}
+											<p>@timeAgo</p>
+										</div>
+									</div>
+								</div>
+							}
+						}
+						else
+						{
+							<div class="col-12 text-center">
+								<h4 style="color: #fff; margin: 40px 0;">No recent activities found for this filter.</h4>
+							</div>
+						}
+
+						<div class="col-lg-12">
+							<div class="live-page__btn">
+								<a href="#0" class="load-more">View All Items </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-3 col-md-4">
+				<div class="activity__filter">
+					<div class="activity__filter-title">
+						<h6>Filters</h6>
+						<a href="@Url.Action("Index", "RecentActivity")" class="btn-clear" style="color: #ff5252; text-decoration: none; font-size: 14px;">Clear all</a>
+					</div>
+
+					<div class="activity__radio-box">
+						<form id="filterForm" method="get" action="@Url.Action("Index", "RecentActivity")">
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="all" @(Model.CurrentFilter == "all" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">All Activities</span>
+							</label>
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="mint" @(Model.CurrentFilter == "mint" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">Mints (Creation)</span>
+							</label>
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="listings" @(Model.CurrentFilter == "listings" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">Listings</span>
+							</label>
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="purchases" @(Model.CurrentFilter == "purchases" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">Purchases</span>
+							</label>
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="sales" @(Model.CurrentFilter == "sales" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">Sales</span>
+							</label>
+							<label class="custom-rario">
+								<input type="radio" name="filter" value="bids" @(Model.CurrentFilter == "bids" ? "checked" : "") onchange="this.form.submit()">
+								<span class="radio-dot"></span>
+								<span class="radio-text">Bids</span>
+							</label>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

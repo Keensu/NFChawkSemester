@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "403 Forbidden";
+}
+<!-- error -->
+<section class="error">
+    <div class="container">
+        <div class="error-container">
+            <div class="error-image">
+                <img src="~/images/background/error403.png" alt="403 Forbidden">
+            </div>
+            <h3>Access Denied</h3>
+            <p>You don't have permission to access this page. <br> Please check your credentials or contact the administrator.</p>
+            <div class="live-page__btn">
+                <a href="@Url.Action("Index", "Home")" class="btn-1">Back To Home <span></span></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- error -->

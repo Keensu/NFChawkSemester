@@ -1,0 +1,93 @@
+﻿@model NFChawk.Models.Entities.User
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit User - Admin Dashboard</title>
+    <link class="icon" type="image/png" href="~/images/favicon1.png" />
+    <link rel="stylesheet" href="~/css/app.css" />
+    <script src="~/js/app.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="is-header-blur bg-slate-50 dark:bg-navy-900 font-sans p-6">
+    <div class="max-w-2xl mx-auto card p-6 bg-white dark:bg-navy-750 border border-slate-150 dark:border-navy-600 rounded-xl shadow-sm transition-all">
+
+        <div class="flex items-center justify-between mb-6 border-b border-slate-150 dark:border-navy-700 pb-4">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Manage User Account</h2>
+                <p class="text-xs text-slate-400 dark:text-navy-300 mt-0.5">Account ID: @Model.Id</p>
+            </div>
+            <div class="px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-100 dark:bg-navy-600 text-primary dark:text-accent-light uppercase tracking-wider">
+                Identity User
+            </div>
+        </div>
+
+
+        <form asp-action="EditUser" method="post" class="space-y-5">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="grid grid-cols-1 gap-5">
+
+                <div class="flex flex-col gap-1.5">
+                    <label asp-for="UserName" class="text-sm font-medium text-slate-600 dark:text-navy-200">Username</label>
+                    <input asp-for="UserName" class="w-full px-3 py-2 bg-slate-50 dark:bg-navy-800 border border-slate-150 dark:border-navy-600 rounded-lg text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all" />
+                    <span asp-validation-for="UserName" class="text-xs font-medium text-error mt-1"></span>
+                </div>
+
+
+                <div class="flex flex-col gap-1.5">
+                    <label asp-for="Email" class="text-sm font-medium text-slate-600 dark:text-navy-200">Email Address</label>
+                    <input asp-for="Email" type="email" class="w-full px-3 py-2 bg-slate-50 dark:bg-navy-800 border border-slate-150 dark:border-navy-600 rounded-lg text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all" />
+                    <span asp-validation-for="Email" class="text-xs font-medium text-error mt-1"></span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label asp-for="PhoneNumber" class="text-sm font-medium text-slate-600 dark:text-navy-200">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="w-full px-3 py-2 bg-slate-50 dark:bg-navy-800 border border-slate-150 dark:border-navy-600 rounded-lg text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-primary transition-all" placeholder="+1 (555) 000-0000" />
+                    <span asp-validation-for="PhoneNumber" class="text-xs font-medium text-error mt-1"></span>
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+
+                    <div class="flex flex-col gap-1.5 p-4 bg-slate-50 dark:bg-navy-800 border border-slate-150 dark:border-navy-600 rounded-xl">
+                        <label asp-for="Balance" class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-navy-300">Available Balance ETH</label>
+                        <div class="relative mt-1">
+                            <input asp-for="Balance" type="number" step="0.01" class="w-full pl-12 pr-3 py-1.5 bg-white dark:bg-navy-750 border border-slate-150 dark:border-navy-600 rounded-lg text-primary dark:text-accent-light font-mono font-bold text-lg focus:outline-hidden focus:ring-2 focus:ring-success" />
+                        </div>
+                        <span asp-validation-for="Balance" class="text-xs font-medium text-error mt-1"></span>
+                    </div>
+
+
+                    <div class="flex flex-col gap-1.5 p-4 bg-slate-50 dark:bg-navy-800 border border-slate-150 dark:border-navy-600 rounded-xl">
+                        <label asp-for="HeldBalance" class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-navy-300">Held Balance ETH</label>
+                        <div class="relative mt-1">
+                            <input asp-for="HeldBalance" type="number" step="0.01" class="w-full pl-12 pr-3 py-1.5 bg-white dark:bg-navy-750 border border-slate-150 dark:border-navy-600 rounded-lg text-amber-500 font-mono text-lg focus:outline-hidden focus:ring-2 focus:ring-amber-500" />
+                        </div>
+                        <span asp-validation-for="HeldBalance" class="text-xs font-medium text-error mt-1"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-150 dark:border-navy-700 mt-6">
+                <a asp-action="Index" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-navy-200 bg-white dark:bg-navy-700 border border-slate-150 dark:border-navy-600 rounded-lg hover:bg-slate-50 dark:hover:bg-navy-600 transition-colors cursor-pointer btn1">
+                    Back to List
+                </a>
+                <button type="submit" class="px-5 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-focus dark:bg-accent dark:hover:bg-accent-focus rounded-lg shadow-xs transition-colors cursor-pointer btn1">
+                    Save Profile
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

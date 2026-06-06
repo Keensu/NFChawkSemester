@@ -1,0 +1,18 @@
+/* commom title */
+.common-title{
+    margin-bottom: 55px;
+}
+.common-title h2{
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.center-title{
+    margin-bottom: 55px;
+    text-align: center;
+}
+.center-title h2{
+    text-transform: inherit;
+}
+/* commom title */

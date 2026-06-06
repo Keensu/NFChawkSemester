@@ -1,0 +1,431 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NFChawk.Models.Enums
+@using NFChawk.Models.ViewModels
+@model HomeViewModel
+@inject UserManager<NFChawk.Models.Entities.User> UserManager
+@{
+    var currentUser = await UserManager.GetUserAsync(User);
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="main-slider slider-one">
+    <div class="image-layer-one" style="background-image: url(@Url.Content("~/images/banner/banner-bg-01.png"));"></div>
+
+    <div class="light-one">
+        <img src="~/images/shapes/purple-light.png" alt="light">
+    </div>
+    <div class="light-two">
+        <img src="~/images/shapes/orange-light.png" alt="light">
+    </div>
+    <div class="light-three">
+        <img src="~/images/shapes/red-light.png" alt="light">
+    </div>
+    <div class="light-four">
+        <img src="~/images/shapes/green-light.png" alt="light">
+    </div>
+
+    <div class="slider-one__wrap">
+        <div class="swiper-container slider-one-style1">
+            <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true,
+                "effect": "fade",
+                "speed": 3000,
+                "pagination": {
+                "el": "#main-slider-pagination",
+                "type": "bullets",
+                "clickable": true
+                },
+                "navigation": {
+                "nextEl": "#main-slider__swiper-button-next",
+                "prevEl": "#main-slider__swiper-button-prev"
+                },
+                "autoplay": {
+                "delay": 6000
+                }
+                }'>
+
+                <div class="swiper-wrapper">
+                    @if (Model.FeaturedNfts != null && Model.FeaturedNfts.Any())
+                    {
+                        foreach (var nft in Model.FeaturedNfts)
+                        {
+                            <div class="swiper-slide">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <div class="slider-one__content">
+                                                <div class="slider-one__content__inner">
+                                                    <div class="slider-one__title__box">
+                                                        <h1 class="slider-one__title">Discover, Collect & <br> Sell Extraordinary <br> NFT’s.</h1>
+                                                        <p class="slider-one__text">There are many variations of NFT's available, <br> Get'em all now!</p>
+                                                    </div>
+                                                    <div class="slider-one__btn-box">
+                                                        <div class="btn-link">
+                                                            <a href="@Url.Action("Index", "Contact")" class="btn-1">Explore Now <i class="icon-round-arrow"></i> <span></span></a>
+                                                        </div>
+                                                        <div class="btn-link btn-box-two">
+                                                            <a href="@(User.Identity != null && User.Identity.IsAuthenticated ? Url.Action("Create", "NFT") : Url.Action("SignUp", "Auth"))">Create NFT<i class="icon-right-angle"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="slider-one__right-content">
+                                                <div class="slider-one__right-img">
+                                                    <img src="@Url.Content(nft.ImageUrl)" alt="@nft.Name">
+                                                </div>
+                                                <div class="content-box">
+                                                    <div class="content-box-title">
+                                                        <div class="content-box-title-left">
+                                                            <h4><a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })">@nft.Name</a></h4>
+                                                        </div>
+                                                        <div class="member-info">
+                                                            <p>
+                                                                @if (nft.Owner != null && !string.IsNullOrWhiteSpace(nft.Owner.UserName))
+                                                                {
+                                                                    @nft.Owner.UserName
+                                                                }
+                                                                else if (nft.Author != null && !string.IsNullOrWhiteSpace(nft.Author.UserName))
+                                                                {
+                                                                    @nft.Author.UserName
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:Anonymous
+                                                                }
+                                                            </p>
+                                                            <span>Owner</span>
+                                                        </div>
+                                                        <div class="content-box-title-right">
+                                                            <h3>@nft.Price ETH</h3>
+                                                            @if (nft.Status == NFTStatus.IsForSale)
+                                                            {
+                                                                <p>Active</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>Not for Sale</p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="content-box-btn">
+                                                        @{
+                                                            var isOwner = currentUser != null && (nft.OwnerId == currentUser.Id || (nft.OwnerId == null && nft.AuthorId == currentUser.Id));
+                                                        }
+
+                                                        @if (nft.Status == NFTStatus.OnAuction)
+                                                        {
+                                                            <a href="@Url.Action("Details", "Auction", new { id = nft.Auction?.Id })" class="btn-1 left-btn">GO TO AUCTION <span></span></a>
+                                                        }
+                                                        else if (isOwner)
+                                                        {
+                                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1 left-btn">MY ITEM <span></span></a>
+                                                        }
+                                                        else if (nft.Status == NFTStatus.IsForSale)
+                                                        {
+                                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1 left-btn">BUY NOW <span></span></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1 left-btn">VIEW DETAILS <span></span></a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="work">
+    <div class="container">
+        <div class="common-title">
+            <h2>Create & sell your NFT</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="work__single wow fadeInUp" data-wow-delay="100ms">
+                    <div class="work__single-icon">
+                        <i class="icon-Card-2"></i>
+                    </div>
+                    <div class="work__single-title">
+                        <a>Connect Card</a>
+                    </div>
+                    <div class="work__single-text">
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="work__single wow fadeInUp" data-wow-delay="200ms">
+                    <div class="work__single-icon">
+                        <i class="icon-cloud"></i>
+                    </div>
+                    <div class="work__single-title">
+                        <a href="@(User.Identity != null && User.Identity.IsAuthenticated ? Url.Action("Create", "NFT") : Url.Action("SignUp", "Auth"))">Create NFT</a>
+                    </div>
+                    <div class="work__single-text">
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="work__single wow fadeInUp" data-wow-delay="300ms">
+                    <div class="work__single-icon">
+                        <i class="icon-round-plus"></i>
+                    </div>
+                    <div class="work__single-title">
+                        <a href="@(User.Identity != null && User.Identity.IsAuthenticated ? Url.Action("Index", "Personal") : Url.Action("SignUp", "Auth"))">Add your NFTs</a>
+                    </div>
+                    <div class="work__single-text">
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="work__single wow fadeInUp" data-wow-delay="400ms">
+                    <div class="work__single-icon">
+                        <i class="icon-cart"></i>
+                    </div>
+                    <div class="work__single-title">
+                        <a href="@(User.Identity != null && User.Identity.IsAuthenticated ? Url.Action("Index", "Personal") : Url.Action("SignUp", "Auth"))">Sell your NFTs</a>
+                    </div>
+                    <div class="work__single-text">
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="live wow fadeInUp" data-wow-delay="100ms">
+    <div class="container">
+        <div class="common-title">
+            <img src="~/images/icons/live.svg" alt="icon">
+            <h2>Live Auction</h2>
+        </div>
+
+        <div class="live__slider">
+            <div class="owl-carousel owl-theme thm-owl__carousel live-carousel owl-nav-style-one"
+                 data-owl-options='{
+                 "loop" : true, "autoplay" : true, "margin" : 30, "nav" : true, "dots" : false, "smartSpeed" : 500, "autoplayTimeout" : 10000,
+                 "navText" : ["<span class=\"icon-left-arrow1\"></span>","<span class=\"icon-right-arror1\"></span>"],
+                "responsive": { "0": { "Items": 1 }, "768": { "Items": 1 }, "992": { "Items": 2 }, "1200": { "Items": 3 } }
+                }'>
+
+                @if (Model.LiveAuctions != null && Model.LiveAuctions.Any())
+                {
+                        foreach (var auction in Model.LiveAuctions)
+                        {
+                                <div class="single-Item">
+                                    <div class="single-Item-image">
+                                        <img src="@Url.Content(auction.NFT?.ImageUrl ?? "~/images/resource/placeholder.png")" alt="@auction.NFT?.Name">
+                                    </div>
+                                    <div class="single-Item-content">
+                                        <div class="single-Item-title">
+                                            <h3>@auction.NFT?.Name</h3>
+                                        </div>
+                                        <div class="single-Item-info">
+                                            <div class="single-Item-member-info">
+                                                <div class="single-Item-member-img">
+                                                    <img src="~/images/team/member-1.png" alt="photo">
+                                                </div>
+                                                <div class="ribon">
+                                                    <i class="icon-red-love"></i>
+                                                    <span>@(auction.Id + 120)</span>
+                                                </div>
+                                                <div class="member-info">
+                                                    <p>@(auction.Seller?.UserName ?? "Anonymous")</p>
+                                                    <span>Artist</span>
+                                                </div>
+                                            </div>
+                                            <div class="single-Item-time-info">
+                                                <div class="single-Item-clock">
+                                                    <img src="~/images/icons/clock-1.png" alt="icon">
+                                                </div>
+                                                <div class="member-info">
+                                                    @{
+                                                            var diff = auction.EndTime - DateTime.UtcNow;
+                                                            var timer = diff.TotalSeconds > 0 ? $"{(int)diff.TotalHours} : {diff.Minutes} : {diff.Seconds}" : "Ended";
+                                                    }
+                                                    <h4>@timer</h4>
+                                                    <span>Hours</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="single-Item-bid">
+                                            <div class="Item-bid">
+                                                <span>Current Bid</span>
+                                                <h3>@auction.CurrentPrice ETH</h3>
+                                            </div>
+                                            <div class="Item-bid-btn">
+                                                <a href="@Url.Action("Details", "Auction", new { id = auction.Id })" class="btn-1">PLACE A BID <span></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newes wow fadeInUp" data-wow-delay="100ms">
+    <div class="container">
+        <div class="common-title">
+            <h2>Newest Items</h2>
+        </div>
+
+        <div class="live__slider">
+            <div class="owl-carousel owl-theme thm-owl__carousel live-carousel owl-nav-style-one"
+                 data-owl-options='{
+                 "loop" : true, "autoplay" : true, "margin" : 30, "nav" : true, "dots" : false, "smartSpeed" : 500, "autoplayTimeout" : 6000,
+                 "navText" : ["<span class=\"icon-left-arrow1\"></span>","<span class=\"icon-right-arror1\"></span>"],
+                "responsive": { "0": { "Items": 1 }, "768": { "Items": 1 }, "992": { "Items": 2 }, "1200": { "Items": 3 } }
+                }'>
+
+                @if (Model.NewestItems != null && Model.NewestItems.Any())
+                {
+                        foreach (var nft in Model.NewestItems)
+                        {
+                                <div class="single-Item">
+                                    <div class="single-Item-image">
+                                        <img src="@Url.Content(nft.ImageUrl)" alt="@nft.Name">
+                                    </div>
+                                    <div class="single-Item-content">
+                                        <div class="single-Item-title">
+                                            <h3>@nft.Name</h3>
+                                        </div>
+                                        <div class="single-Item-info">
+                                            <div class="single-Item-member-info">
+                                                <div class="ribon">
+                                                    <i class="icon-red-love"></i>
+                                                    <span>@(nft.Id + 45)</span>
+                                                </div>
+                                                <div class="member-info">
+                                                    <p>@(nft.Owner?.UserName ?? nft.Author?.UserName ?? "Anonymous")</p>
+                                                    <span>Owner</span>
+                                                </div>
+                                            </div>
+                                            <div class="single-Item-time-info">
+                                                <div class="member-info">
+                                                    <h4>NEW</h4>
+                                                    <span>Status</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="single-Item-bid">
+                                            <div class="Item-bid">
+                                                <span>Current Bid</span>
+                                                <h3>@nft.Price ETH</h3>
+                                            </div>
+                                            <div class="Item-bid-btn">
+                                                @{
+                                                    var isOwner = currentUser != null && (nft.OwnerId == currentUser.Id || (nft.OwnerId == null && nft.AuthorId == currentUser.Id));
+                                                }
+                                                @if (nft.Status == NFTStatus.OnAuction)
+                                                {
+                                                    <a href="@Url.Action("Details", "Auction", new { id = nft.Auction?.Id })" class="btn-1">GO TO AUCTION <span></span></a>
+                                                }
+                                                else if (isOwner)
+                                                {
+                                                    <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">MY ITEM <span></span></a>
+                                                }
+                                                else if (nft.Status == NFTStatus.IsForSale)
+                                                {
+                                                    <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">BUY NOW <span></span></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Index", "ItemDetails", new { id = nft.Id, type = "nft" })" class="btn-1">VIEW DETAILS <span></span></a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="collection">
+    <div class="container">
+        <div class="center-title">
+            <h2>Popular Collections</h2>
+        </div>
+
+        <div class="row">
+            @if (Model.PopularCollections != null && Model.PopularCollections.Any())
+            {
+                foreach (var col in Model.PopularCollections)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="collection__single wow fadeInUp" data-wow-delay="100ms">
+                            <div class="collection__image-box">
+                                <div class="left-image-box">
+                                    <a href="@Url.Content(col.BannerImageUrl)" class="lightbox-image">
+                                        <img src="@Url.Content(col.BannerImageUrl)" alt="@col.Name">
+                                    </a>
+                                </div>
+
+                                <div class="right-image-box">
+                                    @for (int i = 0; i < 2; i++)
+                                    {
+                                        var nft = col.NFTs?.ElementAtOrDefault(i);
+                                        if (nft != null)
+                                        {
+                                            <a href="@Url.Content(nft.ImageUrl)" class="lightbox-image">
+                                                <img src="@Url.Content(nft.ImageUrl)" alt="nft-preview">
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#"><img src="~/images/resource/placeholder.png" alt="placeholder"></a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="collection__single-content">
+                                <div class="single-Item-title">
+                                    <a href="@Url.Action("Index", "ItemDetails", new { id = col.Id, type = "collection" })">@col.Name</a>
+                                    <p>@(col.NFTs?.Count ?? 0) Collection</p>
+                                </div>
+                                <div class="ribon-two">
+                                    <i class="icon-love"></i>
+                                    <span>@((col.NFTs?.Count ?? 1) * 7)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<section class="community wow fadeInUp" data-wow-delay="100ms">
+    <div class="container">
+        <div class="community__container">
+            <div class="community__title">
+                <h2>Join Our Community</h2>
+                <p>Contact us for more information</p>
+            </div>
+            <div class="community__btn">
+                <a href="@Url.Action("Index", "Contact")" class="btn-1">JOIN DISCORD <i class="icon-discord"></i> <span></span></a>
+            </div>
+        </div>
+    </div>
+</section>

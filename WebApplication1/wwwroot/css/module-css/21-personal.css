@@ -1,0 +1,381 @@
+﻿.dashboard-section {
+    padding: 80px 0;
+    color: var(--white-color);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 40px;
+    margin-bottom: 50px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.user-wallets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px 0;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wallet-item {
+    flex: 1;
+    min-width: 150px;
+}
+
+    .wallet-item.border-left {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        padding-left: 20px;
+    }
+
+.wallet-label {
+    color: #adb5bd;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.wallet-value {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+    .wallet-value.green {
+        color: #28a745;
+    }
+
+    .wallet-value.purple {
+        color: #6f42c1;
+    }
+.nft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    overflow: visible !important;
+}
+
+.nft-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: visible !important;
+}
+
+    .nft-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--main-color);
+    }
+
+.nft-image-wrapper {
+    width: 100%;
+    height: 260px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+    background: #1f293d;
+}
+
+    .nft-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.auction-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #6f42c1;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.nft-card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: visible !important;
+}
+
+.nft-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .nft-meta h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+.nft-price {
+    color: var(--main-color);
+    font-weight: 600;
+}
+.nft-action-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: visible !important;
+    position: relative;
+}
+
+.nft-move-form {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 1001 !important;
+    overflow: visible !important;
+}
+
+.move-select-container {
+    flex: 1;
+    position: relative;
+    overflow: visible !important;
+}
+.nft-card .nice-select {
+    flex: 1 !important;
+    float: none !important;
+    width: 100% !important;
+    height: 46px !important;
+    line-height: 44px !important;
+    padding-left: 15px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .nft-card .nice-select .current {
+        color: #ffffff !important;
+        display: block !important;
+        font-size: 14px !important;
+    }
+
+.nice-select:after {
+    content: '';
+    display: block;
+    border-bottom: 2px solid #ffffff !important;
+    border-right: 2px solid #ffffff !important;
+    height: 8px;
+    width: 8px;
+    position: absolute;
+    right: 15px !important;
+    top: 50%;
+    transform: translateY(-70%) rotate(45deg);
+    transition: all 0.15s ease-in-out;
+}
+
+.nice-select.open:after {
+    transform: translateY(-30%) rotate(-135deg);
+}
+
+
+.nft-card .nice-select .list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100% !important;
+    max-height: 250px !important;
+    margin-top: 4px !important;
+    background-color: #1a2233 !important;
+    border: 1px solid var(--main-color) !important;
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9) !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+    padding: 0;
+    list-style: none;
+}
+
+.nice-select.open .list {
+    display: block;
+}
+
+.nft-card .nice-select .option {
+    color: #adb5bd !important;
+    line-height: 40px !important;
+    min-height: 40px !important;
+    padding-left: 15px !important;
+    font-size: 14px !important;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+    .nft-card .nice-select .option:hover,
+    .nft-card .nice-select .option.focus,
+    .nft-card .nice-select .option.selected.focus {
+        background-color: var(--main-color) !important;
+        color: #ffffff !important;
+    }
+
+
+.btn-move-submit {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap;
+    height: 46px !important;
+    min-width: 80px;
+    padding: 0 20px !important;
+    margin: 0 !important;
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    transition: 0.3s !important;
+}
+
+    .btn-move-submit:hover {
+        filter: brightness(1.2);
+    }
+
+
+.nft-sale-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.action-buttons-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.full-width {
+    width: 100%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete-full {
+    width: 100%;
+    height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    color: #ff4d4d;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-delete-full:hover {
+        background: #ff4d4d;
+        color: #fff;
+    }
+
+.btn-delete-text {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.collection-banner-frame {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: #1f293d;
+}
+
+    .collection-banner-frame img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+.collection-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.collection-mini-previews {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nft-mini-thumb {
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+@media (max-width: 991px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-actions {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .nft-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-wallets {
+        flex-direction: column;
+    }
+
+    .wallet-item.border-left {
+        border: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 15px;
+    }
+}

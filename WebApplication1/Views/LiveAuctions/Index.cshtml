@@ -1,0 +1,95 @@
+﻿@using NFChawk.Models.ViewModels
+@model LiveAuctionsViewModel
+@{
+    ViewData["Title"] = "Live Auctions";
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(@Url.Content("~/images/banner/common-banner-01.jpg"));"></div>
+    <div class="common-banner__title">
+        <h2>Explore Auction</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span> Explore Auction</span>
+    </div>
+</section>
+
+<section class="live-page">
+    <div class="container">
+        <div class="row">
+            @if (Model.Auctions != null && Model.Auctions.Any())
+            {
+                @foreach (var auction in Model.Auctions)
+                {
+                    <div class="col-lg-4 col-md-6 Item-list">
+                        <div class="live-page__single-Item">
+                            <div class="single-Item-image">
+                                <img src="@Url.Content(auction.NFT.ImageUrl)" alt="@auction.NFT.Name">
+                            </div>
+                            <div class="single-Item-content">
+                                <div class="single-Item-title">
+                                    <h3><a href="@Url.Action("Details", "Auction", new { id = auction.Id })">@auction.NFT.Name</a></h3>
+                                </div>
+                                <div class="single-Item-info">
+                                    <div class="single-Item-member-info">
+                                        <div class="member-info">
+                                            <p>@auction.Seller.UserName</p>
+                                            <span>Seller</span>
+                                        </div>
+                                    </div>
+                                    <div class="single-Item-time-info">
+                                        <div class="single-Item-clock">
+                                            <img src="~/images/icons/clock-1.png" alt="icon">
+                                        </div>
+                                        <div class="member-info">
+                                            @{
+                                                var timeLeft = auction.EndTime - DateTime.UtcNow;
+                                                var timeDisplay = timeLeft.TotalSeconds > 0
+                                                ? $"{(int)timeLeft.TotalHours} : {timeLeft.Minutes} : {timeLeft.Seconds}"
+                                                : "Finished";
+                                            }
+                                            <h4>@timeDisplay</h4>
+                                            <span>Time Left</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-Item-bid">
+                                    <div class="Item-bid">
+                                        <span>Current Bid</span>
+                                        <h3>@auction.CurrentPrice $</h3>
+                                    </div>
+                                    <div class="Item-bid-btn">
+                                        <a href="@Url.Action("Details", "Auction", new { id = auction.Id })" class="btn-1">PLACE A BID <span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <h3 style="color: white; margin: 50px 0;">No active auctions found. Check back later!</h3>
+                </div>
+            }
+
+            @* Оставляем кнопку только если планируешь делать Load More через JS *@
+            <div class="col-lg-12">
+                <div class="live-page__btn">
+                    <a href="#0" class="load-more">View All Items </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="latest-news">
+    <div class="marquee">
+        <ul class="marquee-content">
+            @for (int i = 0; i < 8; i++)
+            {
+                <li>Discover & Collect Extraordinary Digital Art and Rare NFTs</li>
+            }
+        </ul>
+    </div>
+</div>

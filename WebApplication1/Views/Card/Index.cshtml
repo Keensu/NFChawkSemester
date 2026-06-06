@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Card";
+}
+<!-- common banner -->
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(images/banner/common-banner-01.jpg);"></div>
+    <div class="common-banner__title">
+        <h2>Connect Card</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span> Connect Card</span>
+    </div>
+</section>
+<!-- common banner -->
+<!-- Card page -->
+<section class="Card-page">
+    <div class="container">
+
+        <div class="common-title centered">
+            <h2>Card Connect</h2>
+        </div>
+
+        <div class="card-connect-form">
+
+            <form id="cardForm">
+
+                <div class="form-group">
+                    <a for="cardNumber">Card Number</a>
+
+                    <input id="cardNumber"
+                           name="cardNumber"
+                           type="text"
+                           placeholder="0000 0000 0000 0000"
+                           maxlength="19"
+                           inputmode="numeric"
+                           autocomplete="cc-number"
+                           required>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <a for="expiry">Expiry Date</a>
+
+                        <input id="expiry"
+                               name="expiry"
+                               type="text"
+                               placeholder="MM/YY"
+                               maxlength="5"
+                               inputmode="numeric"
+                               autocomplete="cc-exp"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <a for="cvc">CVC</a>
+
+                        <input id="cvc"
+                               name="cvc"
+                               type="password"
+                               placeholder="***"
+                               maxlength="3"
+                               inputmode="numeric"
+                               autocomplete="cc-csc"
+                               required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-1">
+                    Submit card
+                    <span></span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+<!-- Card page -->

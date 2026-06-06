@@ -1,0 +1,293 @@
+﻿/* Popular Collections */
+.collection__single {
+    position: relative;
+    padding: 20px;
+    border-radius: 5px;
+    background: #242435;
+}
+.collection__image-box{
+    display: flex;
+    align-Items: center;
+    gap: 15px;
+}
+.right-image-box{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.collection__single-content{
+    display: flex;
+    align-Items: center;
+    justify-content: space-between;
+}
+.single-Item-title p{
+    margin-top: 5px;
+}
+.ribon-two {
+    display: flex;
+    align-Items: center;
+    gap: 12px;
+    padding: 8px 15px;
+    border-radius: 50px;
+    background: var(--main-color);
+}
+.ribon-two span{
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 300;
+}
+.ribon-two i {
+    font-size: 20px;
+    color: #ffffff;
+}
+/* Popular Collections */
+
+
+/* collection page */
+.collection-page{
+    padding: 130px 0 100px;
+}
+.collection-page .collection__single{
+    margin-bottom: 30px;
+}
+/* collection page */
+
+
+/* Create Collection */
+.create-collection {
+    padding: 130px 0 130px;
+}
+
+.create-collection__left-container {
+    margin-left: 165px;
+}
+
+.create-collection__right-container {
+    margin-left: 10px;
+    max-width: 530px;
+    width: 100%;
+}
+
+.create-collection__title h4 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.create-collection__single {
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    padding: 30px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    background: #242435;
+}
+
+.create-collection__left-container .single-Item-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .create-collection__left-container .single-Item-title .single-heart {
+        font-size: 28px;
+    }
+
+.upload-file {
+    border-radius: 10px;
+    border: 2px dashed #333;
+    padding: 60px 0;
+    text-align: center;
+}
+
+    .upload-file .upload-icon {
+        color: var(--main-color);
+        font-size: 36px;
+    }
+
+    .upload-file h6 {
+        color: #86909D;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 25px;
+    }
+
+    .upload-file p {
+        margin-top: 10px;
+    }
+
+.upload-btn {
+    max-width: 150px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 10px 32px;
+    font-size: 15px;
+    line-height: 1.5;
+    border-radius: 25px;
+    border: 1px solid var(--main-color);
+    background-color: transparent;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+    .upload-btn input[type="file"] {
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: scale(3);
+        opacity: 0;
+    }
+
+
+.create-collection__form-box {
+    margin-top: 35px;
+}
+
+.collection-common-input {
+    margin-top: 10px;
+    width: 100%;
+    background: #242435; 
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0 20px; 
+    height: 50px; 
+    line-height: 50px; 
+    color: #ffffff;
+    outline: none;
+    display: block;
+}
+
+
+select.collection-common-input {
+    padding: 0 15px; 
+    cursor: pointer;
+    appearance: none; 
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+}
+
+
+    select.collection-common-input:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #fff;
+    }
+
+.collection-common-input::placeholder {
+    color: #86909D;
+}
+
+
+.create-collection__form-box textarea.collection-common-input {
+    height: 120px;
+    padding: 15px 20px; 
+    line-height: 1.5;
+}
+
+.create-collection__form-btn {
+    margin-top: 30px;
+}
+
+    .create-collection__form-btn .btn-1 {
+        background-color: var(--main-color);
+        padding: 10px 48px;
+        font-size: 16px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        border-radius: 5px;
+        color: #fff;
+    }
+
+        .create-collection__form-btn .btn-1 span {
+            background-color: #242435;
+        }
+/* Create Collection */
+
+
+
+
+
+/* ------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------- */
+/* Large screen  */
+@media only screen and (min-width: 1200px) and (max-width: 1319px) {
+    .create-collection__left-container {
+        margin-left: 75px;
+    }
+
+}
+
+
+/* Medium screen  */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .collection__single-content h3{
+        font-size: 18px;
+    }
+
+    .create-collection__left-container {
+        margin-left: 0px;
+    }
+    .create-collection__right-container {
+        max-width: 475px;
+        width: 100%;
+    }
+
+
+
+}
+
+
+
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .collection__single{
+        margin-bottom: 25px;
+    }
+
+    .create-collection__left-container {
+        margin-left: 0px;
+    }
+    .create-collection__right-container{
+        margin-top: 50px;
+    }
+        
+
+}
+
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+    .collection__single{
+        margin-bottom: 25px;
+    }
+	
+
+    .create-collection__left-container {
+        margin-left: 0px;
+    }
+    .create-collection__right-container{
+        margin-top: 50px;
+    }
+    .create-collection__right-container {
+        max-width: 320px;
+        width: 100%;
+        margin-left: 0;
+    }
+
+
+}
+/* ------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------- */

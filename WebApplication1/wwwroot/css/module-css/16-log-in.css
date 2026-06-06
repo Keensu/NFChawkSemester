@@ -1,0 +1,141 @@
+/* log in */
+.log-in{
+    padding: 130px 0 130px;
+}
+.log-in__container{
+    max-width: 700px;
+    width: 100%;
+    padding: 70px 140px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background: #242435;
+    text-align: center;
+}
+.log-in__container h4{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.log-in__title{
+    margin-bottom: 20px;
+}
+.log-in__form .input{
+    position: relative;
+    margin-bottom: 20px;
+}
+.log-in__form .input::after{
+    content: '';
+    width: 1px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.40);
+    position: absolute;
+    top: 0;
+    left: 50px;
+}
+.log-in__form .input .common-input{
+    width: 100%;
+    padding: 15px 0 11px 65px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    background-color: transparent;
+    color: #ffffff;
+}
+.log-in__form .input .common-input::placeholder{
+    color: #86909D;
+}
+.log-in__form .input span{
+    position: absolute;
+    left: 18px;
+    top: 12px;
+}
+.password-box{
+    display: flex;
+    align-Items: center;
+    justify-content: space-between;
+}
+.remember{
+    display: flex;
+    align-Items: center;
+    gap: 10px;
+}
+.log-in__btn .btn-1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: var(--main-color);
+    padding: 10px 42px 10px 42px;
+}
+.log-in__btn .btn-1 span{
+    background-color: #242435;
+}
+.log-in__form a{
+    color: #7815FF;
+}
+.log-in__form a:hover{
+    color: #86909D;
+}
+.log-signup a{
+    display: inline;
+    color: #7815FF;
+}
+.log-signup{
+    display: flex;
+    align-Items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.signin-divider ul{
+    margin: 20px 0;
+    display: flex;
+    align-Items: center;
+    justify-content: space-between;
+}
+.signin-divider ul .divider{
+    width: 45%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.40);
+}
+.login-media ul{
+    display: flex;
+    align-Items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+.login-media ul li a{
+    padding: 13px 16px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.login-media ul li a i{
+    margin-right: 5px;
+}
+.login-media ul li a.facebook{
+    background-color: #3D5B96;
+    transition: 0.3s;
+}
+.login-media ul li a.facebook:hover{
+    background-color: #274b92;
+}
+.login-media ul li a.google{
+    background-color: #DD4D3F;
+    transition: 0.3s;
+}
+.login-media ul li a.google:hover{
+    background-color: #d12010;
+}
+/* log in */
+
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px){
+    .log-in__container {
+        padding: 70px 10px;
+    }
+    .login-media ul {
+        flex-direction: column;
+    }
+
+}

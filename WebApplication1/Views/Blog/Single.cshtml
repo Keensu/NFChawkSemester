@@ -1,0 +1,59 @@
+﻿@using NFChawk.Models.ViewModels
+@model BlogSingleViewModel
+
+<section class="blog-single">
+	<div class="container">
+		<div class="common-title text-center">
+			<h2>@Model.Post.CategoryDisplay</h2>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="blog-single__left">
+					<div class="blog-single__left-image">
+						<img src="~/images/blog/@Model.Post.ImageUrl" alt="image" class="w-100">
+					</div>
+					<div class="date">
+						<h5>@Model.Post.CreatedAt.Day</h5>
+						<h6>@Model.Post.CreatedAt.ToString("MMM")</h6>
+					</div>
+					<h2 class="blog-single__title">@Model.Post.Title</h2>
+
+					<div class="blog-single__text">
+						@Html.Raw(Model.Post.Content)
+					</div>
+
+					<div class="comment-form">
+						<h4 class="title">Leave a Comment</h4>
+
+						@if (TempData["Success"] != null)
+						{
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<strong>Успешно!</strong> @TempData["Success"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						}
+
+						@if (TempData["Error"] != null)
+						{
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Ошибка!</strong> @TempData["Error"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						}
+
+						<form asp-controller="Blog" asp-action="SendComment" method="post">
+							<input type="hidden" name="postId" value="@Model.Post.Id" />
+
+							<div class="input-group">
+								<input type="text" asp-for="CommentForm.Name" class="comment-input" placeholder="Name*" required>
+								<input type="email" asp-for="CommentForm.Email" class="comment-input" placeholder="Email*" required>
+							</div>
+							<textarea asp-for="CommentForm.Message" class="comment-input" placeholder="Comment" required></textarea>
+							<button type="submit" class="btn-1">Post Comment <span></span></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

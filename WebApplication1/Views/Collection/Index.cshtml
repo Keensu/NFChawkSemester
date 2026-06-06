@@ -1,0 +1,82 @@
+﻿@model List<NFChawk.Models.Entities.Collection>
+
+@{
+    ViewData["Title"] = "Collections";
+}
+
+<section class="common-banner">
+    <div class="common-banner__bg" style="background-image: url(/images/banner/common-banner-01.jpg);"></div>
+
+    <div class="common-banner__title">
+        <h2>Collections</h2>
+        <a href="@Url.Action("Index", "Home")">home / </a>
+        <span>Collections</span>
+    </div>
+</section>
+
+<section class="collection-page">
+
+    <div class="container">
+
+        <div class="row">
+
+            @foreach (var c in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="collection__single wow fadeInUp">
+                        <div class="collection__image-box">
+                            <div class="left-image-box">
+                                @if (c.NFTs.Any())
+                                {
+                                    <a href="@c.NFTs.First().ImageUrl" class="lightbox-image">
+                                        <img src="@c.NFTs.First().ImageUrl" alt="img">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <img src="/images/resource/collection-placeholder.png" alt="empty">
+                                }
+                            </div>
+
+                            <div class="right-image-box">
+
+                                @foreach (var nft in c.NFTs.Skip(1).Take(2))
+                                {
+                                    <a href="@nft.ImageUrl" class="lightbox-image">
+                                        <img src="@nft.ImageUrl" alt="img">
+                                    </a>
+                                }
+
+                            </div>
+
+                        </div>
+
+                        
+                        <div class="collection__single-content">
+
+                            <div class="single-Item-title">
+                                <a href="@Url.Action("Index", "ItemDetails", new { id = c.Id, type = "collection" })">
+                                    @c.Name
+                                </a>
+
+                                <p>@c.NFTs.Count Items</p>
+                            </div>
+
+                            <div class="ribon-two">
+                                <i class="icon-love"></i>
+                                <span>@(c.NFTs.Count * 10)</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>

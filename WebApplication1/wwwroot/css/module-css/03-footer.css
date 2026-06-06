@@ -1,0 +1,254 @@
+/* ===========================================
+	Main Footer
+============================================== */
+.main-footer {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.main-footer .container{
+	border-top: 1px solid rgba(255, 255, 255, 0.10);
+	padding: 100px 0 50px;
+}
+
+.footer-three .container {
+    border-top: transparent;
+    padding: 0px 0 50px;
+}
+
+.footer-widget__explore {
+	position: relative;
+	display: block;
+}
+
+.footer-widget__logo-box{
+	margin-bottom: 29px;
+}
+
+.footer-widget__logo .footer-widget__text p{
+	color: #86909D;
+	margin-right: 136px;
+}
+
+.footer-widget__social {
+	position: relative;
+	display: flex;
+	gap: 15px;
+	align-Items: center;
+	margin-top: 25px;
+}
+.footer-widget__social a {
+	position: relative;
+	font-size: 26px;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background: #1C1C29;
+	color: var(--white-color);
+	transition: all 500ms ease;
+	z-index: 1;
+}
+.footer-widget__social a:hover{
+	color: #ffffff;
+}
+.footer-widget__social a.instagram{
+	font-size: 20px;
+}
+.footer-widget__social a.tik-tok{
+	font-size: 20px;
+}
+.footer-widget__social a:hover{
+	background-color: var(--main-color);
+}
+
+.footer-widget__title-box {
+	position: relative;
+	display: block;
+	margin-bottom: 25px;
+}
+
+.footer-widget__title {
+	position: relative;
+	display: block;
+	font-size: 20px;
+	text-align: left;
+	color: var(--white-color);
+	font-weight: 500;
+	font-family: 'Poppins', sans-serif;
+}
+
+.footer-widget__explore{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.footer-widget__explore-list-box {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.footer-widget__explore-list {
+	position: relative;
+	display: block;
+}
+
+.footer-widget__explore-list li {
+	position: relative;
+	display: block;
+}
+
+.footer-widget__explore-list li+li {
+	margin-top: 20px;
+}
+
+.footer-widget__explore-list li a {
+	position: relative;
+	display: flex;
+	align-Items: center;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 400;
+	-webkit-transition: all 500ms ease;
+	transition: all 500ms ease;
+	color: #86909D;
+}
+
+.footer-widget__explore-list li a:hover {
+	color: var(--main-color);
+}
+
+.footer-widget__newsletter {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+.footer-widget__newsletter .footer-widget__text p{
+	color: #86909D;
+}
+.footre_form{
+	margin-top: 20px;
+}
+.footre_form form{
+	position: relative;
+}
+.footer-mail{
+	width: 100%;
+	background: transparent;
+	padding: 15px 0 15px 20px;
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.20);
+}
+.footer-mail::placeholder{
+	color: #86909D;
+	font-size: 16px;
+	font-weight: 400;
+}
+.footre_form form button{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 72px;
+	height: 46px;
+	display: flex;
+	align-Items: center;
+	justify-content: center;
+	border-radius: 3px;
+	background-color: var(--main-color);
+	font-size: 24px;
+	transition: 0.5s;
+}
+.footre_form form button:hover,.footer-three .footre_form form button:hover{
+	background-color: #1C1C29;
+}
+.footer-three .footre_form form button{
+	background-color: #2A66FF;
+}
+/* ===========================================
+	Main Footer
+============================================== */
+
+
+
+
+
+
+
+/* =======================================
+Responsive
+========================================== */
+/* Large screen  */
+@media only screen and (min-width: 1200px) and (max-width: 1319px) {
+	.main-footer .container {
+		padding: 100px 15px 50px 15px;
+	}
+
+}
+
+
+
+/* Medium screen  */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.main-footer .container {
+		padding: 70px 15px 50px 15px;
+	}
+
+
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+	.footer-widget__explore {
+		display: block;
+	}
+
+	.footer-widget__column {
+		margin-bottom: 50px;
+	}
+
+
+}
+
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.main-footer .container {
+		padding: 70px 15px 50px 15px;
+	}
+	
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+	.footer-widget__explore {
+		justify-content: flex-start;
+	}
+
+	.footer-widget__column{
+		margin-bottom: 50px;
+	}
+
+}
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+	.main-footer .container {
+		padding: 70px 15px 50px 15px;
+	}
+	
+
+
+
+}
+/* =======================================
+Responsive
+========================================== */
+

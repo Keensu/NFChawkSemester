@@ -1,0 +1,406 @@
+﻿@model NFChawk.Models.ViewModels.AdminViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link class="icon" type="image/png" href="~/images/favicon1.png" />
+    <link rel="stylesheet" href="~/css/app.css" />
+    <script src="~/js/app.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body x-data class="is-header-blur bg-slate-50 dark:bg-navy-900 font-sans" x-bind="$store.global.documentBody">
+    <div class="flex min-h-screen">
+
+        <aside class="w-64 bg-white dark:bg-navy-750 border-r border-slate-150 dark:border-navy-600 flex flex-col justify-between shrink-0 min-h-screen sticky top-0">
+            <div class="p-5 space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-150 dark:border-navy-600 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <a href="@Url.Action("Index", "Admin")" title="Admin Home" class="transition-transform hover:scale-105">
+                            <img src="~/images/favicon2.png" alt="Admin Home" class="h-8 w-8" />
+                        </a>
+                        <a href="/" title="Main Site Home" class="transition-transform hover:scale-105">
+                            <img src="~/images/favicon.png" alt="Site Home" class="h-8 w-8" />
+                        </a>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary dark:text-accent-light">NFChawk</span>
+                </div>
+
+                <nav class="space-y-1.5" id="adminTabs">
+                    <button onclick="switchTab('users')" id="tab-users" class="tab-btn active w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold transition-all text-primary dark:text-accent-light bg-slate-100 dark:bg-navy-600">
+                        <span>Users</span>
+                        <span class="text-xs bg-slate-200 dark:bg-navy-500 text-slate-700 dark:text-navy-100 px-2 py-0.5 rounded-full">@Model.Users?.Count</span>
+                    </button>
+                    <button onclick="switchTab('nfts')" id="tab-nfts" class="tab-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 dark:text-navy-300 hover:bg-slate-50 dark:hover:bg-navy-800">
+                        <span>NFT Tokens</span>
+                        <span class="text-xs bg-slate-100 dark:bg-navy-700 text-slate-500 px-2 py-0.5 rounded-full">@Model.NFTs?.Count</span>
+                    </button>
+                    <button onclick="switchTab('collections')" id="tab-collections" class="tab-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 dark:text-navy-300 hover:bg-slate-50 dark:hover:bg-navy-800">
+                        <span>Collections</span>
+                        <span class="text-xs bg-slate-100 dark:bg-navy-700 text-slate-500 px-2 py-0.5 rounded-full">@Model.Collections?.Count</span>
+                    </button>
+                    <button onclick="switchTab('auctions')" id="tab-auctions" class="tab-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 dark:text-navy-300 hover:bg-slate-50 dark:hover:bg-navy-800">
+                        <span>Auctions</span>
+                        <span class="text-xs bg-slate-100 dark:bg-navy-700 text-slate-500 px-2 py-0.5 rounded-full">@Model.Auctions?.Count</span>
+                    </button>
+                    <button onclick="switchTab('transactions')" id="tab-transactions" class="tab-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 dark:text-navy-300 hover:bg-slate-50 dark:hover:bg-navy-800">
+                        <span>Transactions</span>
+                        <span class="text-xs bg-slate-100 dark:bg-navy-700 text-slate-500 px-2 py-0.5 rounded-full">@Model.Transactions?.Count</span>
+                    </button>
+                    <button onclick="switchTab('blog')" id="tab-blog" class="tab-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-slate-600 dark:text-navy-300 hover:bg-slate-50 dark:hover:bg-navy-800">
+                        <span>Blog Posts</span>
+                        <span class="text-xs bg-slate-100 dark:bg-navy-700 text-slate-500 px-2 py-0.5 rounded-full">@Model.BlogPosts?.Count</span>
+                    </button>
+                </nav>
+            </div>
+
+            <div class="p-4 border-t border-slate-150 dark:border-navy-600 bg-slate-50 dark:bg-navy-800/30">
+                <div class="flex items-center space-x-3">
+                    <div class="h-2 w-2 rounded-full bg-success"></div>
+                    <span class="text-xs font-medium text-slate-600 dark:text-navy-200">System Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-6 max-w-5xl mx-auto space-y-6">
+            <div class="border-b border-slate-150 dark:border-navy-700 pb-5">
+                <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Management Dashboard</h1>
+                <p class="text-sm mt-1 text-slate-500 dark:text-navy-300">Administrative tools, database entity controllers and state triggers.</p>
+            </div>
+
+            <div id="tabPanels" class="space-y-6">
+
+                <div id="panel-users" class="tab-panel active card p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">System Users</h2>
+                    <div class="overflow-x-auto scrollbar-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-150 dark:border-navy-700 text-xs font-semibold uppercase text-slate-400 dark:text-navy-300">
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3 px-4">Credentials</th>
+                                    <th class="py-3 px-4">Balances</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-navy-600 text-sm">
+                                @if (Model.Users != null && Model.Users.Any())
+                                {
+                                    foreach (var user in Model.Users)
+                                    {
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors">
+                                            <td class="py-3.5 px-4 font-mono text-xs text-slate-400">@user.Id</td>
+                                            <td class="py-3.5 px-4">
+                                                <div class="font-medium text-slate-900 dark:text-white">@user.UserName</div>
+                                                <div class="text-xs text-slate-400">@user.Email</div>
+                                                <div class="text-xs text-slate-400">@user.PhoneNumber</div>
+                                            </td>
+                                            <td class="py-3.5 px-4 space-y-0.5">
+                                                <div><span class="text-xs text-slate-400">Available:</span> <span class="font-semibold text-primary dark:text-accent-light">@user.Balance.ToString("N2") ETH</span></div>
+                                                <div><span class="text-xs text-slate-400">Held:</span> <span class="font-medium text-amber-500">@user.HeldBalance.ToString("N2") ETH</span></div>
+                                            </td>
+                                            <td class="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+                                                <a href="@Url.Action("EditUser", "Admin", new { id = user.Id })" class="text-xs font-medium text-primary hover:text-primary-focus bg-primary/10 hover:bg-primary/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                    Edit (GET)
+                                                </a>
+                                                <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Delete this user permanently?');" class="inline">
+                                                    <button type="submit" class="text-xs font-medium text-error hover:text-error-focus bg-error/10 hover:bg-error/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                        Delete (POST)
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-slate-400">No users found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="panel-nfts" class="tab-panel hidden card p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">NFT Catalog</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @if (Model.NFTs != null && Model.NFTs.Any())
+                        {
+                            foreach (var nft in Model.NFTs)
+                            {
+                                <div class="border border-slate-150 dark:border-navy-600 rounded-xl overflow-hidden bg-slate-50 dark:bg-navy-800 flex flex-col justify-between">
+                                    <div class="p-4 space-y-2">
+                                        <div class="flex justify-between items-start">
+                                            <span class="text-tiny font-bold uppercase tracking-wider text-slate-400">ID: @nft.Id</span>
+                                            <form asp-action="DeleteNFT" asp-route-id="@nft.Id" method="post" onsubmit="return confirm('Remove this NFT from database?');">
+                                                <button type="submit" class="text-tiny font-medium text-error bg-error/10 hover:bg-error/20 px-2 py-0.5 rounded transition-colors btn1">
+                                                    Delete (POST)
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <h3 class="font-bold text-slate-900 dark:text-white truncate">@nft.Name</h3>
+                                        <p class="text-xs text-slate-400 line-clamp-2">@nft.Description</p>
+                                    </div>
+                                    <div class="p-4 bg-slate-100 dark:bg-navy-750 border-t border-slate-150 dark:border-navy-600 flex justify-between items-center">
+                                        <span class="text-xs font-medium text-slate-500">Collection: #@nft.CollectionId</span>
+                                        <span class="text-sm font-bold text-primary dark:text-accent-light">@nft.Price.ToString("N2") ETH</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-span-full text-center py-8 text-slate-400">No NFT tokens available.</div>
+                        }
+                    </div>
+                </div>
+
+                <div id="panel-collections" class="tab-panel hidden card p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Collections</h2>
+                    <div class="overflow-x-auto scrollbar-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-150 dark:border-navy-700 text-xs font-semibold uppercase text-slate-400 dark:text-navy-300">
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3 px-4">Name</th>
+                                    <th class="py-3 px-4">Owner ID</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-navy-600 text-sm">
+                                @if (Model.Collections != null && Model.Collections.Any())
+                                {
+                                    foreach (var collection in Model.Collections)
+                                    {
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors">
+                                            <td class="py-3 px-4 font-mono text-xs text-slate-400">@collection.Id</td>
+                                            <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">@collection.Name</td>
+                                            <td class="py-3 px-4 font-mono text-xs">@collection.AuthorId</td>
+                                            <td class="py-3 px-4 text-right">
+                                                <form asp-action="DeleteCollection" asp-route-id="@collection.Id" method="post" onsubmit="return confirm('Delete this collection entirely?');">
+                                                    <button type="submit" class="text-xs font-medium text-error hover:text-error-focus bg-error/10 hover:bg-error/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                        Delete (POST)
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-slate-400">No collections found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="panel-auctions" class="tab-panel hidden card p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Auctions</h2>
+                    <div class="overflow-x-auto scrollbar-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-150 dark:border-navy-700 text-xs font-semibold uppercase text-slate-400 dark:text-navy-300">
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3 px-4">NFT Target</th>
+                                    <th class="py-3 px-4">Pricing Status</th>
+                                    <th class="py-3 px-4">Operational Status</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-navy-600 text-sm">
+                                @if (Model.Auctions != null && Model.Auctions.Any())
+                                {
+                                    foreach (var auction in Model.Auctions)
+                                    {
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors">
+                                            <td class="py-3.5 px-4 font-mono text-xs text-slate-400">@auction.Id</td>
+                                            <td class="py-3.5 px-4 font-medium text-slate-900 dark:text-white">NFT #@auction.NFTId</td>
+                                            <td class="py-3.5 px-4 space-y-0.5">
+                                                <div class="text-xs text-slate-400">Start: @auction.StartPrice.ToString("N2") ETH</div>
+                                                <div class="font-bold text-amber-500">Highest Bid: @auction.CurrentPrice.ToString("N2") ETH</div>
+                                            </td>
+                                            <td class="py-3.5 px-4 space-y-1">
+                                                <div class="text-tiny flex flex-wrap gap-1">
+                                                    @if (auction.IsFinished)
+                                                    {
+                                                        <span class="px-1.5 py-0.5 bg-slate-200 dark:bg-navy-600 text-slate-600 dark:text-navy-100 rounded">Finished</span>
+                                                    }
+                                                    @if (auction.IsLocked)
+                                                    {
+                                                        <span class="px-1.5 py-0.5 bg-error/10 text-error rounded">Locked</span>
+                                                    }
+                                                    @if (!auction.IsFinished && !auction.IsLocked)
+                                                    {
+                                                        <span class="px-1.5 py-0.5 bg-success/10 text-success rounded">Active</span>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td class="py-3.5 px-4 text-right">
+                                                @if (!auction.IsFinished)
+                                                {
+                                                    <form asp-action="CancelAuction" asp-route-id="@auction.Id" method="post" onsubmit="return confirm('Cancel auction and return highest bid amount?');">
+                                                        <button type="submit" class="text-xs font-medium text-error hover:text-error-focus bg-error/10 hover:bg-error/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                            Cancel Auction (POST)
+                                                        </button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-xs text-slate-400 italic">No Actions Available</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-8 text-slate-400">No auctions found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="panel-transactions" class="tab-panel hidden card p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Financial Records Ledger</h2>
+                    <div class="overflow-x-auto scrollbar-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-150 dark:border-navy-700 text-xs font-semibold uppercase text-slate-400 dark:text-navy-300">
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3 px-4">Details</th>
+                                    <th class="py-3 px-4">Amount</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-navy-600 text-sm">
+                                @if (Model.Transactions != null && Model.Transactions.Any())
+                                {
+                                    foreach (var transaction in Model.Transactions)
+                                    {
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors">
+                                            <td class="py-3.5 px-4 font-mono text-xs text-slate-400">@transaction.Id</td>
+                                            <td class="py-3.5 px-4 space-y-0.5">
+                                                <div class="text-xs font-mono">User: @transaction.UserId</div>
+                                                <div class="text-slate-600 dark:text-navy-100 text-xs font-medium">@transaction.Description</div>
+                                                <div class="text-tiny text-slate-400">@transaction.CreatedAt.ToString("g")</div>
+                                            </td>
+                                            <td class="py-3.5 px-4 font-bold @(transaction.Amount >= 0 ? "text-success" : "text-error")">
+                                                @transaction.Amount.ToString("N2") ETH
+                                            </td>
+                                            <td class="py-3.5 px-4 text-right">
+                                                @if (!transaction.Description.Contains("[Canceled by Admin]"))
+                                                {
+                                                    <form asp-action="CancelTransaction" asp-route-id="@transaction.Id" method="post" onsubmit="return confirm('Cancel transaction logs and reverse balances?');">
+                                                        <button type="submit" class="text-xs font-medium text-error hover:text-error-focus bg-error/10 hover:bg-error/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                            Cancel Transaction (POST)
+                                                        </button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-xs text-slate-400 italic">Canceled State</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-slate-400">No transactions recorded.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="panel-blog" class="tab-panel hidden card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Blog Publications Control</h2>
+                        <a href="@Url.Action("CreateBlogPost", "Admin")" class="text-xs font-bold text-white bg-primary hover:bg-primary-focus dark:bg-accent dark:hover:bg-accent-focus px-3 py-1.5 rounded transition-colors btn1">
+                            Create Blog Post (GET)
+                        </a>
+                    </div>
+                    <div class="space-y-4">
+                        @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+                        {
+                            foreach (var post in Model.BlogPosts)
+                            {
+                                <div class="p-4 border border-slate-150 dark:border-navy-600 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-slate-50 dark:hover:bg-navy-800 transition-all">
+                                    <div class="space-y-1 flex-1">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs font-mono text-slate-400">#@post.Id</span>
+                                            <h3 class="font-bold text-slate-900 dark:text-white">@post.Title</h3>
+                                        </div>
+                                        <p class="text-xs text-slate-500 line-clamp-2">@post.Content</p>
+                                        <div class="text-tiny text-slate-400">Timestamp: @post.CreatedAt.ToString("g")</div>
+                                    </div>
+                                    <div class="flex md:flex-col gap-2 shrink-0 justify-end">
+                                        <a href="@Url.Action("EditBlogPost", "Admin", new { id = post.Id })" class="text-center text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 px-2.5 py-1 rounded transition-colors btn1">
+                                            Edit Post (GET)
+                                        </a>
+                                        <form asp-action="DeleteBlogPost" asp-route-id="@post.Id" method="post" onsubmit="return confirm('Delete this blog post?');">
+                                            <button type="submit" class="w-full text-xs font-medium text-error bg-error/10 hover:bg-error/20 px-2.5 py-1 rounded transition-colors btn1">
+                                                Delete (POST)
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center py-8 text-slate-400">No publication content available.</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+                panel.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-primary', 'dark:text-accent-light', 'bg-slate-100', 'dark:bg-navy-600', 'font-semibold');
+                btn.classList.add('text-slate-600', 'dark:text-navy-300', 'font-medium', 'hover:bg-slate-50', 'dark:hover:bg-navy-800');
+            });
+
+            const activePanel = document.getElementById('panel-' + tabName);
+            if (activePanel) {
+                activePanel.classList.remove('hidden');
+                activePanel.classList.add('active');
+            }
+
+            const activeTab = document.getElementById('tab-' + tabName);
+            if (activeTab) {
+                activeTab.classList.remove('text-slate-600', 'dark:text-navy-300', 'font-medium', 'hover:bg-slate-50', 'dark:hover:bg-navy-800');
+                activeTab.classList.add('active', 'text-primary', 'dark:text-accent-light', 'bg-slate-100', 'dark:bg-navy-600', 'font-semibold');
+            }
+        }
+    </script>
+</body>
+</html>

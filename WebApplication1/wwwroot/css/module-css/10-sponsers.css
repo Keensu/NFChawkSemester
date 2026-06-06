@@ -1,0 +1,138 @@
+/* sponsore */
+.sponsers{
+    padding:70px 0 50px;
+}
+.sponsers-one{
+    padding-top: 0;
+}
+.sponsers__slider{
+    margin-right: -30px;
+}
+.sponsers__logo{
+    max-width: 220px;
+    width: 100%;
+}
+.sponsers__logo img{
+    width: 100%;
+}
+/* sponsore */
+
+
+/* sponsore 3 */ 
+.sponsers-three {
+    padding-top: 0;
+    padding-bottom: 0px;
+    position: relative;
+}
+.sponsers-three::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.sponsers-three::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--main-color-rgb),0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(2deg);
+}
+.sponsers-three .sponsers__logo {
+    height: 107px;
+    width: 180px;
+    display: flex;
+    align-Items: center;
+    margin: 0 auto;
+}
+/* sponsore 3 */ 
+
+
+
+
+/* ------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------- */
+/* Large screen  */
+@media only screen and (min-width: 1200px) and (max-width: 1319px) {
+    .sponsers__slider {
+        margin-right: 0;
+    }
+    .sponsers__logo {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .sponsers-three{
+        padding: 0;
+    }
+
+}
+
+
+/* Medium screen  */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .sponsers__slider {
+        margin-right: 0;
+    }
+    .sponsers__logo {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .sponsers-three{
+        padding: 0;
+    }
+
+
+
+}
+
+
+
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sponsers__slider {
+        margin-right: 0;
+    }
+    .sponsers__logo {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .sponsers-three{
+        padding: 0;
+    }
+
+	
+
+}
+
+
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+    .sponsers__slider {
+        margin-right: 0;
+    }
+    .sponsers__logo {
+        margin: 0 auto;
+    }
+
+    .sponsers-three{
+        padding: 0;
+    }
+	
+
+
+}
+/* ------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------- */

@@ -1,0 +1,342 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?fqr8b0');
+  src:  url('fonts/icomoon.eot?fqr8b0#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?fqr8b0') format('truetype'),
+    url('fonts/icomoon.woff?fqr8b0') format('woff'),
+    url('fonts/icomoon.svg?fqr8b0#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-right-quotes-symbol:before {
+  content: "\e900";
+}
+.icon-shipped:before {
+  content: "\e901";
+}
+.icon-quality:before {
+  content: "\e902";
+}
+.icon-public-relation:before {
+  content: "\e903";
+}
+.icon-review:before {
+  content: "\e904";
+}
+.icon-share:before {
+  content: "\e905";
+}
+.icon-add:before {
+  content: "\e906";
+}
+.icon-plus:before {
+  content: "\e907";
+}
+.icon-pdf:before {
+  content: "\e908";
+}
+.icon-file:before {
+  content: "\e909";
+}
+.icon-file-1:before {
+  content: "\e90a";
+}
+.icon-location:before {
+  content: "\e90b";
+}
+.icon-loupe:before {
+  content: "\e90c";
+}
+.icon-top-arrow:before {
+  content: "\e90d";
+}
+.icon-down-arrow:before {
+  content: "\e90e";
+}
+.icon-global:before {
+  content: "\e90f";
+}
+.icon-caret-down:before {
+  content: "\e910";
+}
+.icon-user:before {
+  content: "\e911";
+}
+.icon-bag:before {
+  content: "\e912";
+}
+.icon-chevron:before {
+  content: "\e913";
+}
+.icon-left-arrow .path1:before {
+  content: "\e914";
+  color: rgb(244, 67, 54);
+}
+.icon-left-arrow .path2:before {
+  content: "\e915";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-right-arrow .path1:before {
+  content: "\e916";
+  color: rgb(244, 67, 54);
+}
+.icon-right-arrow .path2:before {
+  content: "\e917";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-left-arrow-1:before {
+  content: "\e918";
+}
+.icon-right-arrow-1:before {
+  content: "\e919";
+}
+.icon-play-button-arrowhead:before {
+  content: "\e91a";
+}
+.icon-tick:before {
+  content: "\e91b";
+}
+.icon-right-arrow-2:before {
+  content: "\e91c";
+}
+.icon-download:before {
+  content: "\e91d";
+}
+.icon-left-quote:before {
+  content: "\e91e";
+}
+.icon-star:before {
+  content: "\e91f";
+}
+.icon-star-1:before {
+  content: "\e920";
+}
+.icon-setting:before {
+  content: "\e921";
+}
+.icon-time:before {
+  content: "\e922";
+}
+.icon-right-arrow-3:before {
+  content: "\e923";
+}
+.icon-facebook:before {
+  content: "\e924";
+}
+.icon-twitter:before {
+  content: "\e925";
+}
+.icon-instagram:before {
+  content: "\e926";
+}
+.icon-youtube:before {
+  content: "\e927";
+}
+.icon-plus-1:before {
+  content: "\e928";
+}
+.icon-remove:before {
+  content: "\e929";
+}
+.icon-phone:before {
+  content: "\e92a";
+}
+.icon-mail:before {
+  content: "\e92b";
+}
+.icon-phone-call:before {
+  content: "\e92c";
+}
+.icon-phone-call-1:before {
+  content: "\e92d";
+}
+.icon-question-mark:before {
+  content: "\e92e";
+}
+.icon-parcel:before {
+  content: "\e92f";
+}
+.icon-checklist:before {
+  content: "\e930";
+}
+.icon-star-2:before {
+  content: "\e931";
+}
+.icon-check:before {
+  content: "\e932";
+}
+.icon-maps-and-flags:before {
+  content: "\e933";
+}
+.icon-behance:before {
+  content: "\e934";
+}
+.icon-dribbble:before {
+  content: "\e935";
+}
+.icon-linkedin:before {
+  content: "\e936";
+}
+.icon-checklist-1:before {
+  content: "\e937";
+}
+.icon-hamburger:before {
+  content: "\e938";
+}
+.icon-menu:before {
+  content: "\e939";
+}
+.icon-menu-1:before {
+  content: "\e93a";
+}
+.icon-zoom-in:before {
+  content: "\e93b";
+}
+.icon-link:before {
+  content: "\e93c";
+}
+.icon-zoom-in-1:before {
+  content: "\e93d";
+}
+.icon-close:before {
+  content: "\e93e";
+}
+.icon-shopping-cart:before {
+  content: "\e93f";
+}
+.icon-user-1:before {
+  content: "\e940";
+}
+.icon-play-button:before {
+  content: "\e941";
+}
+.icon-air-frieght:before {
+  content: "\e942";
+}
+.icon-always-on-time:before {
+  content: "\e943";
+}
+.icon-amazon-big-supply:before {
+  content: "\e944";
+}
+.icon-apple-industries:before {
+  content: "\e945";
+}
+.icon-award-winning:before {
+  content: "\e946";
+}
+.icon-call:before {
+  content: "\e947";
+}
+.icon-car-frieght:before {
+  content: "\e948";
+}
+.icon-client-review:before {
+  content: "\e949";
+}
+.icon-customer-reviews:before {
+  content: "\e94a";
+}
+.icon-delivery-done:before {
+  content: "\e94b";
+}
+.icon-dhl:before {
+  content: "\e94c";
+}
+.icon-discovery:before {
+  content: "\e94d";
+}
+.icon-distribution:before {
+  content: "\e94e";
+}
+.icon-enterprice:before {
+  content: "\e94f";
+}
+.icon-envelope-1:before {
+  content: "\e950";
+}
+.icon-experties-year:before {
+  content: "\e951";
+}
+.icon-expert-staff:before {
+  content: "\e952";
+}
+.icon-global-clients:before {
+  content: "\e953";
+}
+.icon-job-title1:before {
+  content: "\e954";
+}
+.icon-language:before {
+  content: "\e955";
+}
+.icon-ocean-frieght:before {
+  content: "\e956";
+}
+.icon-packaging:before {
+  content: "\e957";
+}
+.icon-phone1:before {
+  content: "\e958";
+}
+.icon-professional:before {
+  content: "\e959";
+}
+.icon-project-complete1:before {
+  content: "\e95a";
+}
+.icon-quote2:before {
+  content: "\e95b";
+}
+.icon-redx-logistics:before {
+  content: "\e95c";
+}
+.icon-road-frieght:before {
+  content: "\e95d";
+}
+.icon-safe-secure:before {
+  content: "\e95e";
+}
+.icon-skill-level:before {
+  content: "\e95f";
+}
+.icon-standard:before {
+  content: "\e960";
+}
+.icon-store-house:before {
+  content: "\e961";
+}
+.icon-title-shape1:before {
+  content: "\e962";
+}
+.icon-train-frieght:before {
+  content: "\e963";
+}
+.icon-transportation:before {
+  content: "\e964";
+}
+.icon-warehouse-store:before {
+  content: "\e965";
+}
+.icon-year-experiences:before {
+  content: "\e966";
+}
